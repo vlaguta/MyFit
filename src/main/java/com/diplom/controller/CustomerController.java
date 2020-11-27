@@ -1,5 +1,7 @@
 package com.diplom.controller;
 
+import com.diplom.dto.CustomerDto;
+import com.diplom.dto.ProductDto;
 import com.diplom.model.Customer;
 import com.diplom.model.Product;
 import com.diplom.service.CustomerService;
@@ -16,31 +18,28 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping("/customers")
-    public List<Customer> all() {
+    public List<CustomerDto> all() {
         return customerService.getAllCustomer();
     }
 
     @GetMapping("/customers/{id}")
-    public Customer getCustomerById(@PathVariable("id") Integer customerId) {
+    public CustomerDto getCustomerById(@PathVariable("id") Integer customerId) {
         return customerService.getCustomer(customerId);
     }
 
     @PostMapping("/customers")
-    public void addCustomer(Customer customer) {
-        customerService.saveCustomer(customer);
+    public void addCustomer(CustomerDto customerDto) {
+        customerService.saveCustomer(customerDto);
     }
 
     @DeleteMapping("customers/{id}")
     public void deleteCustomer(@PathVariable("id") Integer customerId) {
-        Customer customer = customerService.getCustomer(customerId);
-        customerService.deleteCustomer(customer);
+        customerService.deleteCustomer(customerId);
     }
 
-//    @PutMapping("customers/{id}")
-//    public void updateCustomer(
-//            @PathVariable(value="id") Integer customerId, Product newProduct){
-//        Product product = productService.getProduct(productId);
-//        //хз
-//    }
-
+    @PutMapping("customers/{id}")
+    public void updateCustomer(
+            @PathVariable(value="id") CustomerDto customerDto){
+        customerService.saveCustomer(customerDto);
+    }
 }

@@ -1,7 +1,7 @@
 package com.diplom.model;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,9 +10,10 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "product")
+@RequiredArgsConstructor
 public class Product {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private int calories;
@@ -20,9 +21,6 @@ public class Product {
     private int protein;
     private int carbonhydrates;
     private int weight;
-    @ManyToMany (mappedBy = "products")
+    @ManyToMany(mappedBy = "products")
     private List<DailyMenu> dailyMenus;
-
-    public Product() {
-    }
 }
