@@ -7,29 +7,27 @@ public class ProductConverter {
 
     public static ProductDto convertProductEntityToDto(Product product) {
 
-        ProductDto productDto = new ProductDto();
-
-        productDto.setName(product.getName());
-        productDto.setCalories(product.getCalories());
-        productDto.setCarbonhydrates(product.getCarbonhydrates());
-        productDto.setFat(product.getFat());
-        productDto.setProtein(product.getProtein());
-        productDto.setWeight(product.getWeight());
-
-        return productDto;
+        return  ProductDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .calories(product.getCalories())
+                .carbonhydrates(product.getCarbonhydrates())
+                .fat(product.getFat())
+                .protein(product.getProtein())
+                .weight(product.getWeight())
+                .build();
     }
 
     public static Product converterProductDtoToEntity(ProductDto productDto){
 
-        Product product = new Product();
-
-        product.setName(productDto.getName());
-        product.setCalories(productDto.getCalories());
-        product.setCarbonhydrates(productDto.getCarbonhydrates());
-        product.setFat(productDto.getFat());
-        product.setProtein(productDto.getProtein());
-        product.setWeight(productDto.getWeight());
-
-        return product;
+        return  Product.builder()
+                .id(productDto.getId())
+                .name(productDto.getName())
+                .calories(productDto.getCalories())
+                .carbonhydrates(productDto.getCarbonhydrates())
+                .fat(productDto.getFat())
+                .protein(productDto.getProtein())
+                .weight(productDto.getWeight())
+                .build();
     }
 }

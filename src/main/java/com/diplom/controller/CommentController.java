@@ -1,7 +1,6 @@
 package com.diplom.controller;
 
 import com.diplom.model.Comment;
-import com.diplom.model.DailyMenu;
 import com.diplom.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;

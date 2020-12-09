@@ -39,7 +39,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public void updateProduct(ProductDto productDto){
+    public void updateProduct(int id, ProductDto productDto){
         productRepository.save(converterProductDtoToEntity(productDto));
     }
 }

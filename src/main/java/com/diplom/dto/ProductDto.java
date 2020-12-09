@@ -1,12 +1,15 @@
 package com.diplom.dto;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 @Data
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDto {
 
+    private int id;
     private String name;
     private int calories;
     private int fat;

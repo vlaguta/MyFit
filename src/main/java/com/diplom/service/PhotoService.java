@@ -21,7 +21,6 @@ public class PhotoService {
 //        return photoRepository.getOne(id);
         //хз что тут
  //   }
-
     public void savePhoto(Photo photo){
         photoRepository.save(photo);
     }

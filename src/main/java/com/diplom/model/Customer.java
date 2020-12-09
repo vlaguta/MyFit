@@ -1,16 +1,17 @@
 package com.diplom.model;
 
 import com.diplom.Activity;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Getter
-@Entity
 @Table(name="customer")
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -25,8 +26,6 @@ public class Customer {
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "daily_menu_id")
     private DailyMenu dailyMenu;
-//    @OneToMany(mappedBy = "customer")
-//    private List<Post> postList;
 
     @OneToMany(mappedBy = "customer")
     private List<Post>posts;

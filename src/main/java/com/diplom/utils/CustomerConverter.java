@@ -7,27 +7,23 @@ public class CustomerConverter {
 
     public static CustomerDto convertCustomerEntityToCustomerDto(Customer customer){
 
-        CustomerDto customerDto = new CustomerDto();
-
-        customerDto.setName(customer.getName());
-        customerDto.setAge(customer.getAge());
-        customerDto.setWeight(customer.getWeight());
-        customerDto.setHeight(customer.getHeight());
-        customerDto.setActivity(customer.getActivity());
-
-        return customerDto;
+        return CustomerDto.builder()
+                .name(customer.getName())
+                .age(customer.getAge())
+                .weight(customer.getWeight())
+                .height(customer.getHeight())
+                .activity(customer.getActivity())
+                .build();
     }
 
     public static Customer convertCustomerDtoToCustomerEntity(CustomerDto customerDto) {
 
-        Customer customer = new Customer();
-
-        customer.setName(customerDto.getName());
-        customer.setAge(customerDto.getAge());
-        customer.setWeight(customerDto.getWeight());
-        customer.setHeight(customerDto.getHeight());
-        customer.setActivity(customerDto.getActivity());
-
-        return customer;
+        return Customer.builder()
+                .name(customerDto.getName())
+                .age(customerDto.getAge())
+                .weight(customerDto.getWeight())
+                .height(customerDto.getHeight())
+                .activity(customerDto.getActivity())
+                .build();
     }
 }

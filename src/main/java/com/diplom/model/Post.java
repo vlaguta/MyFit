@@ -1,13 +1,16 @@
 package com.diplom.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
+@Table(name = "post")
 @Entity
-@Table(name="post")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +20,17 @@ public class Post {
     @JoinColumn(name = "customer_id", insertable = false, updatable = false)
     private Customer customer;
 
-  @ManyToMany(cascade = CascadeType.ALL)
-  @JoinTable(
-          name = "post_photo",
-          joinColumns ={@JoinColumn(name="post_id")},
-          inverseJoinColumns = {@JoinColumn(name = "photo_id")}
-  )
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "post_photo",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "photo_id")}
+    )
     private List<Photo> photos;
 
     @OneToMany(mappedBy = "post")
-    private List<Comment>comments;
+    private List<Comment> comments;
 
+    private String text;
 
 }

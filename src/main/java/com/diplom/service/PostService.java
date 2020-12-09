@@ -22,6 +22,9 @@ public class PostService {
     }
 
     public void update(){
-        //такой же вопрос как и в комменте
+    }
+
+    public  List<Post> getAllPosts(){
+        return postRepository.findAll();
     }
 }

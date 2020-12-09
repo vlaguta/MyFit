@@ -26,6 +26,5 @@ public class CommentService {
 
     public void updateComment(Comment comment){
        // здесь будет приходить объект коммент или можно через сеттер апдейтить текст
-
     }
 }

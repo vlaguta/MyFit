@@ -1,11 +1,13 @@
 package com.diplom.dto;
 
 import com.diplom.Activity;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 @Data
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerDto {
 
     private int id;

@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DailyMenuRepository extends JpaRepository<DailyMenu, Integer> {
 
+    public void deleteById(int id);
+
 }

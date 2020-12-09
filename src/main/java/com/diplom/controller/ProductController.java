@@ -23,30 +23,29 @@ public class ProductController {
 //        return "myFit";
 //    }
 
-    @GetMapping("/products")
-    public List<ProductDto> all() {
-        return productService.getAllProduct();
-    }
-
-    @GetMapping("/products/{id}")
-    public ProductDto getProductById(@PathVariable(value = "id") Integer productId) {
-        return productService.getProduct(productId);
-    }
-
-    @PostMapping("/products")
-    public void addProduct(@RequestBody ProductDto productDto) {
-        productService.saveProduct(productDto);
-    }
-
-    @DeleteMapping("products/{id}")
-    public void deleteProduct(@PathVariable(value = "id") Integer productId) {
-        productService.deleteProduct(productId);
-    }
-
-
-    @PutMapping("products/{id}")
-    public void updateProduct(@PathVariable(value = "id") ProductDto productDto) {
-    productService.saveProduct(productDto);
-    }
+//    @GetMapping("/products")
+//    public List<ProductDto> all() {
+//        return productService.getAllProduct();
+//    }
+//
+//    @GetMapping("/products/{id}")
+//    public ProductDto getProductById(@PathVariable(value = "id") Integer productId) {
+//        return productService.getProduct(productId);
+//    }
+//
+//    @PostMapping("/products")
+//    public void addProduct(@RequestBody ProductDto productDto) {
+//        productService.saveProduct(productDto);
+//    }
+//
+//    @DeleteMapping("products/{id}")
+//    public void deleteProduct(@PathVariable(value = "id") Integer productId) {
+//        productService.deleteProduct(productId);
+//    }
+//
+//    @PutMapping("products/{id}")
+//    public void updateProduct(@PathVariable(value = "id") ProductDto productDto) {
+//    productService.saveProduct(productDto);
+//    }
 }
 

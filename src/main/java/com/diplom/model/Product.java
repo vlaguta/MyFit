@@ -1,16 +1,17 @@
 package com.diplom.model;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 
 @Data
-@Entity
 @Table(name = "product")
-@RequiredArgsConstructor
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
