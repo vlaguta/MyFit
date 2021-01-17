@@ -1,9 +1,13 @@
 package com.diplom.model;
 
 import com.diplom.Activity;
+import com.diplom.Role;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -12,7 +16,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class Customer implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +26,13 @@ public class Customer {
     private double height;
     private int age;
     private Activity activity;
+    private String password;
+    private String login;
+
+    //@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    //@CollectionTable(name="customer_role", joinColumns = @JoinColumn(name="customer_id"))
+    //@Enumerated
+    //private Role role;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "daily_menu_id")
@@ -32,4 +43,39 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List <Photo> photos;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

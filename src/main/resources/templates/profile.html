@@ -1,4 +1,4 @@
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Page Title</title>
     <meta charset="UTF-8">
@@ -130,8 +130,8 @@
     <a href="#" class="active">Главная страница</a>
     <a href="#">Пищевой Журнал</a>
     <a href="#">Список продуктов</a>
-    <a href="#" class="right">Регистрация</a>
-    <a href="#" class="right">Авторизация</a>
+    <a th:href="@{/customers/registration}" class="right">Регистрация</a>
+    <a th:href="@{/customers/login}" class="right">Авторизация</a> //потом вставить страницу с профилем
 </div>
 
 <div class="row">
@@ -147,13 +147,13 @@
         <div class="fakeimg" style="height:60px;">Image</div>
     </div>
     <div class="main">
-        <h2>TITLE HEADING</h2>
+        <h2>Лента новостей</h2>
         <h5>Title description, Dec 7, 2017</h5>
         <div class="fakeimg" style="height:200px;">Image</div>
         <p>Some text..</p>
         <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
         <br>
-        <h2>TITLE HEADING</h2>
+        <h2>Лента новостей</h2>
         <h5>Title description, Sep 2, 2017</h5>
         <div class="fakeimg" style="height:200px;">Image</div>
         <p>Some text..</p>

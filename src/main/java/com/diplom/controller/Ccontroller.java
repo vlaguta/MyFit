@@ -16,8 +16,7 @@ public class Ccontroller {
     }
 
     @GetMapping("/profile")
-    public String getCustomerProfile(Model model){
-        model.addAttribute("profile");
+    public String getCustomerProfile(){
         return "profile";
     }
 }

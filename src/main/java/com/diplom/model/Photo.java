@@ -4,12 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name="photo")
+@Table(name = "photo")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Photo {
@@ -20,9 +28,9 @@ public class Photo {
     private List<Comment> comments;
 
     @ManyToMany(mappedBy = "photos")
-    private List<Post>posts;
+    private List<Post> posts;
 
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 }
