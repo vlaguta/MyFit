@@ -1,5 +1,6 @@
 package com.diplom;
 
 public enum Role {
-    USER;
+    USER,
+    ADMIN;
 }

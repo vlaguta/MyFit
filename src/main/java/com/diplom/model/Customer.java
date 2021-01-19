@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Table(name="customer")
@@ -29,10 +30,11 @@ public class Customer implements UserDetails {
     private String password;
     private String login;
 
+
     //@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     //@CollectionTable(name="customer_role", joinColumns = @JoinColumn(name="customer_id"))
-    //@Enumerated
-    //private Role role;
+    //@Enumerated(EnumType.STRING)
+    //private Set<Role> roles;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "daily_menu_id")

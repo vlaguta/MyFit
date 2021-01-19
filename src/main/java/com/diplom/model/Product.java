@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -30,6 +32,9 @@ public class Product {
     private int protein;
     private int carbonhydrates;
     private int weight;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
+    private Category category;
     @ManyToMany(mappedBy = "products")
     private List<DailyMenu> dailyMenus;
 }
