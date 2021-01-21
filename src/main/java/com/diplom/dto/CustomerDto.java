@@ -1,8 +1,10 @@
 package com.diplom.dto;
 
-import com.diplom.Activity;
+import com.diplom.enums.Activity;
+import com.diplom.model.Role;
 import lombok.*;
-import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Data
 @Builder
@@ -16,4 +18,7 @@ public class CustomerDto {
     private double height;
     private int age;
     private Activity activity;
+    private String login;
+    private String password;
+    private Set<Role> roles;
 }

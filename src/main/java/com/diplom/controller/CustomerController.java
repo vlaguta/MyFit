@@ -1,29 +1,18 @@
 package com.diplom.controller;
 
 import com.diplom.dto.CustomerDto;
-import com.diplom.dto.ProductDto;
-import com.diplom.model.Customer;
-import com.diplom.model.Product;
-import com.diplom.service.CustomerService;
-import lombok.Data;
+import com.diplom.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private final CustomerService customerService;
-
-    //@GetMapping
-    //public List<CustomerDto> all() {
-    //    return customerService.getAllCustomer();
-    //}
+    private final CustomerServiceImpl customerService;
 
     @GetMapping("/{id}")
     public CustomerDto getCustomerById(@PathVariable("id") Integer customerId) {
@@ -32,7 +21,7 @@ public class CustomerController {
 
     @GetMapping("/login")
     public String LoginForm(Model model) {
-        return "/security/login";
+        return "security/login";
     }
 
     //@PostMapping("/login")
@@ -55,13 +44,6 @@ public class CustomerController {
     public void updateCustomer(
             @PathVariable(value = "id") CustomerDto customerDto) {
         customerService.saveCustomer(customerDto);
-    }
-
-    @GetMapping("/registration")
-    public String showRegistrationForm(WebRequest request, Model model) {
-        CustomerDto customerDto = new CustomerDto();
-        model.addAttribute("user", customerDto);
-        return "registration";
     }
 }
 

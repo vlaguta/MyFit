@@ -13,6 +13,9 @@ public class CustomerConverter {
                 .weight(customer.getWeight())
                 .height(customer.getHeight())
                 .activity(customer.getActivity())
+                .login(customer.getLogin())
+                .password(customer.getPassword())
+                .roles(customer.getRoles())
                 .build();
     }
 
@@ -24,6 +27,9 @@ public class CustomerConverter {
                 .weight(customerDto.getWeight())
                 .height(customerDto.getHeight())
                 .activity(customerDto.getActivity())
+                .login(customerDto.getLogin())
+                .password(customerDto.getPassword())
+                .roles(customerDto.getRoles())
                 .build();
     }
 }

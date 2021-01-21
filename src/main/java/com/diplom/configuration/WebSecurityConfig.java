@@ -1,5 +1,6 @@
 package com.diplom.configuration;
 
+import com.diplom.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,56 +8,41 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
     @Autowired
-    CustomAuthenticationProvider customAuthProvider;
+    private CustomerService customerService;
 
-    //@Override
-    //public void configure(AuthenticationManagerBuilder auth)
-    //        throws Exception {
-    //
-    //    auth.authenticationProvider(customAuthProvider);
-    //    auth.inMemoryAuthentication()
-    //            .withUser("memuser")
-    //            .password(/*encoder().encode(*/"pass")
-    //            .roles("USER");
-    //}
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder(8);
+    }
 
-    //@Bean
-    //@Override
-    //public UserDetailsService userDetailsService() {
-    //
-    //
-    //    return new InMemoryUserDetailsManager(userDetailService.loadUserByUsername());
-    //}
-
+    @Autowired
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customerService)
+                .passwordEncoder(getPasswordEncoder());
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/profile").permitAll()
+                .antMatchers("/", "/profile", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                //.loginPage("/customers/login")
+                //.loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

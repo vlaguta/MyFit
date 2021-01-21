@@ -1,4 +1,4 @@
-package com.diplom;
+package com.diplom.enums;
 
 public enum Activity {
 
