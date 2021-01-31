@@ -6,4 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface CustomerService extends UserDetailsService {
 
     boolean saveCustomer(CustomerDto customerDto);
+
+    public void updateCustomer(CustomerDto customerDto);
 }

@@ -7,3 +7,7 @@ spring:
     url: "jdbc:postgresql://localhost:54320/postgres"
     username: user
     password: pass
+
+#    spring:
+#      mvc:
+#        static-path-pattern=/uploads/**:

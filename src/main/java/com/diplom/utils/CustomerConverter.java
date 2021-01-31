@@ -16,6 +16,7 @@ public class CustomerConverter {
                 .login(customer.getLogin())
                 .password(customer.getPassword())
                 .roles(customer.getRoles())
+                .sex(customer.getSex())
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class CustomerConverter {
                 .login(customerDto.getLogin())
                 .password(customerDto.getPassword())
                 .roles(customerDto.getRoles())
+                .sex(customerDto.getSex())
                 .build();
     }
 }

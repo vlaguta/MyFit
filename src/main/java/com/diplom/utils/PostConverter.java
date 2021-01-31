@@ -5,12 +5,13 @@ import com.diplom.model.Post;
 
 public class PostConverter {
 
-    public PostDto convertPostEntityToPostDto(Post post){
+    public PostDto convertPostEntityToPostDto(Post post) {
 
-        return PostDto.builder()
-                .text(post.getText())
-                .comments(post.getComments())
-                .photos(post.getPhotos())
-                .build();
+            return PostDto.builder()
+                    .text(post.getText())
+                    //.comments(post.getComments())
+                    .photos(post.getPhotos())
+                    .build();
+        }
     }
-}
+

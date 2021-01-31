@@ -1,6 +1,7 @@
 package com.diplom.dto;
 
 import com.diplom.enums.Activity;
+import com.diplom.enums.Sex;
 import com.diplom.model.Role;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class CustomerDto {
     private double weight;
     private double height;
     private int age;
+    private Sex sex;
     private Activity activity;
     private String login;
     private String password;

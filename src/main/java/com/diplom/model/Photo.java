@@ -3,6 +3,7 @@ package com.diplom.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,9 +22,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Photo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
+    private String url;
     @OneToMany(mappedBy = "photo")
     private List<Comment> comments;
 
@@ -33,4 +37,8 @@ public class Photo {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    public Photo(String name) {
+        this.name = name;
+    }
 }

@@ -1,7 +1,6 @@
 package com.diplom.controller;
 
 import com.diplom.dto.CustomerDto;
-import com.diplom.model.Customer;
 import com.diplom.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,9 +35,8 @@ public class RegistrationController {
             return "security/registration";
 
         }
-        //if (!customerService.(userForm)){
         if (customerService.saveCustomer(customerForm))
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-        return "security/registration";
+        return "profile";
     }
 }

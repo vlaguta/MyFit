@@ -1,31 +1,30 @@
 package com.diplom.service;
 
 import com.diplom.model.Photo;
-import com.diplom.model.Product;
-import com.diplom.repository.PhotoRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.core.io.Resource;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.util.List;
-@Service
-@RequiredArgsConstructor
-public class PhotoService {
+import java.util.stream.Stream;
 
-    private final PhotoRepository photoRepository;
+public interface PhotoService {
 
-    public List<Photo> getAllPhotos(){
-        return photoRepository.findAll();
-    }
+    //public List<Photo> getAllPhotos();
 
-   // public Photo getPhoto(int id){
-//        return photoRepository.getOne(id);
-        //хз что тут
- //   }
-    public void savePhoto(Photo photo){
-        photoRepository.save(photo);
-    }
+    //public void savePhoto(Photo photo);
 
-    public void deletePhoto(Photo photo){
-        photoRepository.delete(photo);
-    }
+    //public void deletePhoto(Photo photo);
+
+    public void init();
+
+    public void save(MultipartFile file);
+
+    //public Resource load(String filename);
+    public Photo load(String filename);
+
+    //public void deleteAll();
+
+    public Stream<Path> loadAll();
+
 }

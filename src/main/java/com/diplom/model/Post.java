@@ -16,7 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Table(name = "post")
@@ -25,9 +27,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String text;
+    private LocalDateTime data;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", insertable = false, updatable = false)
@@ -37,13 +42,9 @@ public class Post {
     @JoinTable(
             name = "post_photo",
             joinColumns = {@JoinColumn(name = "post_id")},
-            inverseJoinColumns = {@JoinColumn(name = "photo_id")}
-    )
+            inverseJoinColumns = {@JoinColumn(name = "photo_id")})
     private List<Photo> photos;
 
     @OneToMany(mappedBy = "post")
-    private List<Comment> comments;
-
-    private String text;
-
+    private Set<Comment> comments;
 }

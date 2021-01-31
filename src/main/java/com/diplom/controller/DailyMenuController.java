@@ -4,20 +4,23 @@ import com.diplom.dto.DailyMenuDto;
 import com.diplom.model.DailyMenu;
 import com.diplom.model.Product;
 import com.diplom.service.DailyMenuService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class DailyMenuController {
 
     private final DailyMenuService dailyMenuService;
 
     @GetMapping("/daily-menus/{id}")
-    public DailyMenuDto getDailyMenuById(@PathVariable(value = "id") Integer dailyMenuId) {
-        return dailyMenuService.getDailyMenu(dailyMenuId);
+    public String getDailyMenuById(@PathVariable(value = "id") Integer dailyMenuId) {
+        return "dailyMenu";
     }
 
     @PostMapping("/daily-menus")

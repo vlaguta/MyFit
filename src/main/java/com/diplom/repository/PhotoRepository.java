@@ -9,4 +9,6 @@ import org.springframework.stereotype.Service;
 @Repository
 public interface PhotoRepository extends JpaRepository<Photo,Integer> {
 
+    public Photo findByName(String name);
+
 }

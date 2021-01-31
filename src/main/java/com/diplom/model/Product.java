@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.List;
 
-
 @Data
 @Table(name = "product")
 @Entity
@@ -33,7 +32,7 @@ public class Product {
     private int carbonhydrates;
     private int weight;
     @ManyToOne
-    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;
     @ManyToMany(mappedBy = "products")
     private List<DailyMenu> dailyMenus;
