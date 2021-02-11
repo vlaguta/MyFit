@@ -23,4 +23,8 @@ public class CustomerDto {
     private String login;
     private String password;
     private Set<Role> roles;
+    private double basicMetabolism;
+    private double weightLossCalories;
+    private double weightGainCalories;
+    private double weightMaintainCalories;
 }

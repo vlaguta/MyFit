@@ -28,7 +28,7 @@ public class ProductService {
     }
 
     public ProductDto getProduct(int id) {
-        return convertProductEntityToDto(productRepository.getOne(id));
+        return convertProductEntityToDto(productRepository.findById(id));
     }
 
     public void saveProduct(ProductDto productDto) {

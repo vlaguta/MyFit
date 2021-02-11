@@ -129,36 +129,33 @@
 <div class="navbar">
     <a href="#" class="active">Главная страница</a>
     <a th:href="@{/customers/profile}">Моя страница</a>
-    <a th:href="@{/foodDiary}">Дневник питания</a>
+    <a th:href="@{/daily-menus}">Дневник питания</a>
     <a th:href="@{/products}">Таблица продуктов</a>
     <a th:href="@{/registration}" class="right">Регистрация</a>
-    <a th:href="@{/customers/login}" class="right">Авторизация</a>
+    <a th:href="@{/login}" class="right">Авторизация</a>
 </div>
 
 <div class="row">
-<!--    <div class="side">-->
-<!--        <h2>Мои страница</h2>-->
-<!--        <h5>Фото:</h5>-->
-<!--        <div class="fakeimg" style="height:200px;">Image</div>-->
-<!--        <p>Некоторая информация обо мне</p>-->
-<!--        <h3>Мои параметры</h3>-->
-<!--        <p>Lorem ipsum dolor sit ame.</p>-->
-<!--        <div class="fakeimg" style="height:60px;">Image</div><br>-->
-<!--        <div class="fakeimg" style="height:60px;">Image</div><br>-->
-<!--        <div class="fakeimg" style="height:60px;">Image</div>-->
-<!--    </div>-->
     <div class="main">
         <h2>Лента новостей</h2>
-        <h5>Title description, Dec 7, 2017</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <div class="inputButton">
+            <form th:action="@{/posts/new}" method="get">
+                <input class="inputButton" type="submit" value="Добавить пост"/>
+            </form>
+        </div>
+        <body>
+        <tr th:each="post: ${posts}">
+            <td th:text="${post.customer.login}"/>
+            <p th:text="${#temporals.format(post.createdDate, 'dd-MM-yyyy HH:mm')}"></p>
+            <td th:text="${post.text}"/>
+            <div>
+                <p th:if="${post.photo == null}"></p>
+                <p th:if="${post.photo != null}"><img th:src="${post.photo.url}" width="400" height="444"/></p>
+            </div>
+        </tr>
+        </body>
         <br>
-        <h2>Лента новостей</h2>
-        <h5>Title description, Sep 2, 2017</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        </tr>
     </div>
 </div>
 

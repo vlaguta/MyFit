@@ -1,5 +1,6 @@
 package com.diplom.model;
 
+import com.diplom.enums.EatingEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -32,15 +34,20 @@ public class DailyMenu {
     private int id;
     private String name;
     // поле с датой
-    private LocalDateTime data;
+    @Column(name="created_date")
+    private LocalDate createdDate;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "product_daily_menu",
             joinColumns = @JoinColumn(name = "daily_menu_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
+    //@ManyToMany(mappedBy = "dailyMenus")
+    //private List<Product> products; //скорее всего не будет использоваться
+
     @OneToOne(optional = false, mappedBy = "dailyMenu")
     private Customer customer;
+
 }
 
 // кастомер айди в продукт дэили и убраль

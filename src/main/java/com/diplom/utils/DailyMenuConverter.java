@@ -9,6 +9,7 @@ public class DailyMenuConverter {
 
         return DailyMenuDto.builder()
                 .products(dailyMenu.getProducts())
+                .createdDate(dailyMenu.getCreatedDate())
                 .build();
     }
 
@@ -16,6 +17,7 @@ public class DailyMenuConverter {
 
         return DailyMenu.builder()
                 .products(dailyMenuDto.getProducts())
+                .createdDate(dailyMenuDto.getCreatedDate())
                 .build();
     }
 }

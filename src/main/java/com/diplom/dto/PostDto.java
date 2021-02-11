@@ -6,6 +6,7 @@ import com.diplom.model.Photo;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,7 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 public class PostDto {
 
-        private List<Photo> photos;
+        private Photo photo;
         private List<Comment> comments;
         private String text;
+        private LocalDateTime createdDate;
+        private Customer customer;
     }

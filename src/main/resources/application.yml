@@ -11,3 +11,8 @@ spring:
 #    spring:
 #      mvc:
 #        static-path-pattern=/uploads/**:
+
+logging:
+  pattern:
+    level: DEBUG
+    org.springframework.transaction: trace

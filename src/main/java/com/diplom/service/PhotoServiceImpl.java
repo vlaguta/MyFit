@@ -1,14 +1,14 @@
 package com.diplom.service;
 
+import com.diplom.model.Customer;
 import com.diplom.model.Photo;
+import com.diplom.repository.CustomerRepository;
 import com.diplom.repository.PhotoRepository;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 public class PhotoServiceImpl implements PhotoService {
 
     private final PhotoRepository photoRepository;
+    private final CustomerRepository customerRepository;
 
     //public List<Photo> getAllPhotos(){
     //    return photoRepository.findAll();
@@ -31,10 +32,11 @@ public class PhotoServiceImpl implements PhotoService {
     //    photoRepository.delete(photo);
     //}
 
-    private final Path PhotoDirectoryPath = Paths.get("src/main/resources/uploads");
+    private final Path PhotoDirectoryPath = Paths.get("src/main/resources/static");
 
-    public PhotoServiceImpl(PhotoRepository photoRepository) {
+    public PhotoServiceImpl(PhotoRepository photoRepository, CustomerRepository customerRepository) {
         this.photoRepository = photoRepository;
+        this.customerRepository = customerRepository;
         init();
     }
 
@@ -51,12 +53,18 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
-    public void save(MultipartFile file) {
+    public void save(MultipartFile file, String login) {
         try {
             Files.copy(file.getInputStream(), this.PhotoDirectoryPath.resolve(file.getOriginalFilename()));
-            Photo photo = new Photo();
+
+            Photo photo = photoRepository.findByCustomerLogin(login)
+                    .orElse( Photo.builder()
+                            .customer(customerRepository.findCustomerByLogin(login)
+                            .orElse(null))
+                            .build());
+            //photo.setCustomer(customer);
             photo.setName(file.getOriginalFilename());
-            photo.setUrl("/src/main/resources/uploads/" + file.getOriginalFilename());
+            photo.setUrl("/" + file.getOriginalFilename());
             photoRepository.save(photo);
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
@@ -64,43 +72,11 @@ public class PhotoServiceImpl implements PhotoService {
         }
     }
 
-    //@Override
-    //public Resource load(String filename) {
-    //    try {
-    //        Path file = root.resolve(filename);
-    //        Resource resource = new UrlResource(file.toUri());
-    //
-    //        if (resource.exists() || resource.isReadable()) {
-    //            return resource;
-    //        } else {
-    //            throw new RuntimeException("Could not read the file!");
-    //        }
-    //    } catch (MalformedURLException e) {
-    //        throw new RuntimeException("Error: " + e.getMessage());
-    //    }
-    //}
-
     @Override
     public Photo load(String filename) {
-        try {
-            Photo photo = photoRepository.findByName(filename);
-            Path file = PhotoDirectoryPath.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return photo;
-            } else {
-                throw new RuntimeException("Could not read the file!");
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
-        }
+        Photo photo = photoRepository.findByName(filename).orElse(null);
+        return photo;
     }
-
-    //@Override
-    //public void deleteAll() {
-    //    FileSystemUtils.deleteRecursively(root.toFile());
-    //}
 
     @Override
     public Stream<Path> loadAll() {
@@ -109,5 +85,10 @@ public class PhotoServiceImpl implements PhotoService {
         } catch (IOException e) {
             throw new RuntimeException("Could not load the files!");
         }
+    }
+
+    @Override
+    public Photo getPhoto(int customerId) {
+        return photoRepository.findByCustomerId(customerId).orElse(null);
     }
 }

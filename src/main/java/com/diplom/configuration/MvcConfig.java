@@ -14,11 +14,4 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/registration").setViewName("/security/registration");
         registry.addViewController("/login").setViewName("/security/login");
     }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:resources/uploads");
-//папка uploads все равно создается в руте
-}
 }

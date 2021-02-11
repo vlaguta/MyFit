@@ -13,7 +13,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public Comment getComment(int id){
-        return commentRepository.getOne(id);
+        return commentRepository.findById(id);
     }
 
     public void saveComment(Comment comment){

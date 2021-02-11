@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import java.util.List;
 @Table(name = "category")
 @Entity
 @Builder
+//@ToString(exclude = "products")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
@@ -26,7 +28,9 @@ public class Category {
     private int id;
     private String name;
     @OneToMany(mappedBy = "category")
-    private List<Product> productList;
+    private List<Product> products;
+
+
 
 
 }

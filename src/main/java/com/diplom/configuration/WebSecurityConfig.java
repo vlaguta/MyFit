@@ -33,11 +33,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        String[] staticResources  =  {
+                "/static/images/**",
+                "static/images/**",
+                "/static/**",
+                "/templates/**",
+                "/resources/**"
+        };
+
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/profile", "/registration", "/upload").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers(staticResources).permitAll()
+                .antMatchers("/", "/profile", "/registration", "/images/1.jpg", "/files").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 //.loginPage("/login")
@@ -46,4 +56,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
     }
+
+    //@Override
+    //protected void configure(HttpSecurity http) throws Exception {
+    //    http
+    //            .csrf().disable()
+    //            .authorizeRequests()
+    //            .antMatchers("/", "/profile", "/registration").permitAll()
+    //            .anyRequest().authenticated()
+    //            .and()
+    //            .formLogin()
+    //            .loginPage("/customers/loginn")
+    //            .permitAll()
+    //            .and()
+    //            .logout().logoutSuccessUrl("/profile");
+    //}
 }

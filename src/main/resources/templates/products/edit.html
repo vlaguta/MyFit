@@ -4,8 +4,29 @@
     <meta charset="UTF-8">
     <title>New product</title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"  crossorigin="anonymous">
+    <style>
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+    </style>
 </head>
 <body>
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+</div>
 <form class="pure-form pure-form-aligned" th:method="PATCH" th:action="@{/products/{id}(id=${product.getId()})}" th:object="${product}">
     <fieldset>
         <div class="pure-control-group">

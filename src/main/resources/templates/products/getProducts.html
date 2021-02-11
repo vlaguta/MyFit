@@ -117,6 +117,27 @@
         ::-webkit-scrollbar-thumb {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         }
+
+        .add {
+            float: right;
+        }
+
+        .inputButton {
+            position: relative;
+            width: 85%;
+            height: 50px;
+            display: block;
+            margin: 30px auto 30px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            border-radius: 5px;
+            color: white;
+            background-color: #0d6958;
+            border: none;
+            -webkit-box-shadow: 0 5px 0 #769f96;
+            -moz-box-shadow: 0 5px 0 #082f27;
+        }
     </style>
 </head>
 <body>
@@ -130,7 +151,7 @@
                 <th>Калории</th>
                 <th>Белки</th>
                 <th>Жиры</th>
-                <th>Углеводы %</th>
+                <th>Углеводы</th>
             </tr>
             </thead>
         </table>
@@ -138,7 +159,7 @@
     <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
-            <tr th:each="category: ${categories}">
+            <!--            <tr th:each="category: ${categories}">-->//переделать, чтобы доставался лист продуктов из каждой категории
             <tr th:each="product : ${products}">
                 <td><span th:text="${product.name}">  </span></td>
                 <td><span th:text="${product.calories}">  </span></td>
@@ -149,13 +170,21 @@
             </tr>
             </tbody>
         </table>
-        <div class="container">
-            <div id="logbox">
-                <form th:action="@{/profile}" method="get">
-                    <input class="inputButton" type="submit" value="Назад"/>
-                </form>
-            </div>
-        </div>
+    </div>
+
+    <div class="inputButton">
+        <form th:action="@{/products/new}" method="get">
+            <input class="inputButton" type="submit" value="Добавить продукт"/>
+        </form>
+    </div>
+
+    <div class="inputButton">
+        <form th:action="@{/profile}" method="get">
+            <input class="inputButton" type="submit" value="Назад"/>
+        </form>
+    </div>
+
+    </div>
     </div>
 </section>
 </body>

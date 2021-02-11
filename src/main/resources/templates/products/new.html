@@ -4,14 +4,56 @@
     <meta charset="UTF-8">
     <title>Update product</title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"  crossorigin="anonymous">
+    <style>
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+        .center{
+            align-content: center;
+            position: relative;
+        }
+        .inputButton {
+            position: relative;
+            width: 85%;
+            height: 50px;
+            display: block;
+            margin: 30px auto 30px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            border-radius: 5px;
+            color: white;
+            background-color: #0d6958;
+            border: none;
+            -webkit-box-shadow: 0 5px 0 #769f96;
+            -moz-box-shadow: 0 5px 0 #082f27;
+        }
+
+    </style>
 </head>
 <body>
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+</div>
+<div class="center">
 <form class="pure-form pure-form-aligned" th:method="POST" th:action="@{/products}" th:object="${product}">
     <fieldset>
         <div class="pure-control-group">
             <label for="name">Название продукта: </label>
             <input type="text" th:field="*{name}" id="name" placeholder="Название продукта" />
-            <span class="pure-form-message-inline">This is a required field.</span>
         </div>
         <p></p>
         <div class="pure-control-group">
@@ -43,5 +85,6 @@
         </div>
     </fieldset>
 </form>
+    </div>
 </body>
 </html>

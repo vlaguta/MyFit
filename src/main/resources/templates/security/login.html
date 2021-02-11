@@ -226,9 +226,9 @@
     <div class="wrapper">
         <div class="container">
             <h1>Добро пожаловать!</h1>
-            <form class="form">
-                <input type="text" placeholder="Логин">
-                <input type="password" placeholder="Пароль">
+            <form class="form" method="post" action="customer/loginn">
+                <input type="text" id="username" name="username" placeholder="Логин">
+                <input type="password" id="password" name="password" placeholder="Пароль">
                 <button type="submit" id="login-button">Login</button>
             </form>
         </div>

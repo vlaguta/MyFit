@@ -1,5 +1,6 @@
 package com.diplom;
 
+import com.diplom.model.DailyMenu;
 import com.diplom.repository.ProductRepository;
 import com.diplom.service.PhotoService;
 import com.diplom.service.ProductService;
@@ -16,7 +17,6 @@ public class DiplomApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DiplomApplication.class, args);
-
     }
         //@Bean
         //CommandLineRunner init(PhotoService photoService) {

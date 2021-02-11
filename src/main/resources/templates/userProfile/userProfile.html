@@ -18,38 +18,72 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        .image{
+            width: 27%;
+            hight: 27%;
+            }
+
+    </style>
 </head>
 
-
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+</div>
 <hr>
 <div class="container bootstrap snippet">
     <div class="row">
-        <div class="col-sm-10"><h1>User name</h1></div>
+        <div class="col-sm-10"><h1><a th:text="${user.login}"></a></h1></div>
     </div>
     <div class="row">
-        <div class="col-sm-3"><!--left col-->
+        <div class="col-sm-3">
 
 
-            <div class="text-center">
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                <h6>Upload a different photo...</h6>
-                <input type="file" class="text-center center-block file-upload">
+            <!--            <div class="text-center">-->
+            <!--                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">-->
+            <!--                <input type="file" class="text-center center-block file-upload">-->
+            <!--                <tr><input type="submit" value="Загрузить" /></tr>-->
+            <!--            </div>-->
+            <!--            </hr><br>-->
+
+            <div>
+                <form method="POST" enctype="multipart/form-data" action="/upload">
+                    <table>
+                            <img th:src="${(photo != null && photo.url != null) ? photo.url : '/ava.jpg'}" width="200" height="222"/>
+                            <tr>
+                                <td><input type="file" name="file"/></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" value="Загрузить"/></td>
+                            </tr>
+                    </table>
+                </form>
             </div>
-            </hr><br>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Social Media</div>
-                <div class="panel-body">
-                    <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
-                </div>
-            </div>
 
         </div><!--/col-3-->
         <div class="col-sm-9">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                <li><a data-toggle="tab" href="#messages">Изменить данные 1</a></li>
-                <!--                <li><a data-toggle="tab" href="#settings">Menu 2</a></li>-->
+                <li><a data-toggle="tab" href="#messages">Изменить данные</a></li>
             </ul>
 
             <div class="tab-content">
@@ -59,109 +93,101 @@
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="first_name"><h4>Вес:</h4></label>
+                                <label for="first_name"><h4>Вес: <a th:text="${user.weight}"></a></h4></label>
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="last_name"><h4>Рост:</h4></label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="phone"><h4>Возраст:</h4></label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-6">
-                                <label for="mobile"><h4>Активность:</h4></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="email"><h4>Пол:</h4></label>
+                                <label for="last_name"><h4>Рост: <a th:text="${user.height}"></a></h4></label>
                             </div>
                         </div>
 
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="password"><h4>Базовый обмен веществ:</h4></label>
+                                <label for="phone"><h4>Возраст: <a th:text="${user.age}"></a></h4></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="mobile"><h4>Активность:<a th:text="${user.activity}"></a></h4></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="email"><h4>Пол:<a th:text="${user.sex}"></a></h4></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Базовый обмен веществ: <a th:text="${user.basicMetabolism}"></a></h4></label>
                             </div>
 
                             <div class="col-xs-6">
-                                <label for="password"><h4>Суточная калорийность для снижения веса:</h4></label>
+                                <label for="password"><h4>Суточная калорийность для снижения веса: <a th:text="${user.weightLossCalories}"></a></h4></label>
                             </div>
 
                             <div class="col-xs-6">
-                                <label for="password"><h4>Суточная калорийность для поддержания веса:</h4></label>
+                                <label for="password"><h4>Суточная калорийность для поддержания веса: <a th:text="${user.weightMaintainCalories}"></a></h4></label>
                             </div>
 
                             <div class="col-xs-6">
-                                <label for="password"><h4>Суточная калорийность для набора веса:</h4></label>
+                                <label for="password"><h4>Суточная калорийность для набора веса: <a th:text="${user.weightGainCalories}"></a></h4></label>
                             </div>
 
                         </div>
                     </form>
                     <hr>
 
-                </div><!--/tab-pane-->
+                </div>
                 <div class="tab-pane" id="messages">
 
                     <hr>
-                    <form class="form" action="##" method="post" id="registrationForm">
+                    <form class="form" th:method="PATCH" th:action="@{/customers/{id}(id=${user.getId()})}" th:object="${user}">
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="first_name"><h4>Рост</h4></label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="введите рост (см)">
+                                <label for="height"><h4>Рост</h4></label>
+                                <input type="text" class="form-control" name="height" id="height" placeholder="введите рост (см)">
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="last_name"><h4>Вес</h4></label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="введите вес (кг)">
+                                <label for="weight"><h4>Вес</h4></label>
+                                <input type="text" class="form-control" name="weight" id="weight" placeholder="введите вес (кг)">
                             </div>
                         </div>
 
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="phone"><h4>Возраст</h4></label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="введите возраст">
+                                <label for="age"><h4>Возраст</h4></label>
+                                <input type="text" class="form-control" name="age" id="age" placeholder="введите возраст">
                             </div>
                         </div>
                         <br>
 
                         <p>Пол:</p>
-                        <p><input name="dzen" type="radio" value="nedzen"> Мужской</p>
-                        <p><input name="dzen" type="radio" value="dzen"> Женский</p>
-<!--                        <p><input type="submit" value="Выбрать"></p>-->
-
+                        <p><input name="sex" type="radio" value="МУЖСКОЙ"> Мужской</p>
+                        <p><input name="sex" type="radio" value="ЖЕНСКИЙ"> Женский</p>
+                        <!--                        <p><input type="submit" value="Выбрать"></p>-->
 
                         <p>Выбери свою активность:</p>
-                        <p><input name="dzen" type="radio" value="nedzen"> Низкая (сидячий образ жизни, работа в офисе)</p>
-                        <p><input name="dzen" type="radio" value="dzen"> Средняя (1-3 тренировки в неделю)</p>
-                        <p><input name="dzen" type="radio" value="pdzen" checked> Высокая (3 и более тренировок в неделю)</p>
-<!--                        <p><input type="submit" value="Выбрать"></p>-->
+                        <p><input name="activity" type="radio" value="НИЗКАЯ"> Низкая (сидячий образ жизни, работа в офисе)</p>
+                        <p><input name="activity" type="radio" value="СРЕДНЯЯ"> Средняя (1-3 тренировки в неделю)</p>
+                        <p><input name="activity" type="radio" value="ВЫСОКАЯ"> Высокая (3 и более тренировок в неделю)</p>
+                        <div class="pure-controls">
+                            <button type="submit" class="pure-button pure-button-primary"> Сохранить</button>
+                        </div>
                     </form>
-
-<!--                    <form class="pure-form pure-form-aligned" th:method="PATCH" th:action="@{/customers/{id}(id=${customer.getId()})}" th:object="${customer}">-->
-<!--                        <fieldset>-->
-<!--                    <div class="pure-controls">-->
-<!--                        <button type="submit" class="pure-button pure-button-primary">Редактировать продукт</button>-->
-<!--                    </div>-->
-<!--                        </fieldset>-->
-<!--                    </form>-->
-            </div><!--/tab-pane-->
-        </div><!--/tab-content-->
-
-    </div><!--/col-9-->
-</div><!--/row-->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

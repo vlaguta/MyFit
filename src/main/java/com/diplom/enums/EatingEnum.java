@@ -1,19 +1,20 @@
 package com.diplom.enums;
 
-public enum Activity {
+public enum EatingEnum {
 
-    НИЗКАЯ(0),
-    СРЕДНЯЯ(1),
-    ВЫСОКАЯ(2);
+    BREAKFAST(0),
+
+    DINNER(1),
+
+    SUPPER(2);
 
     private final int code;
 
-    Activity(int code) {
+    EatingEnum(int code) {
         this.code = code;
     }
 
     public int getCode() {
         return code;
     }
-
 }
