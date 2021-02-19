@@ -19,6 +19,13 @@ public class DailyMenuDto {
     private LocalDate createdDate;
     private int id;
     private String name;
+    private List<ProductDto> breakfast;
+    private List<ProductDto> dinner;
+    private List<ProductDto> supper;
+    private int generalCalories;
+    private int generalProteins;
+    private int generalFats;
+    private int generalCarbonhydrates;
 
 
     // private Customer customer; // не уверена, что нужно это поле в дто

@@ -15,7 +15,9 @@ public interface DailyMenuRepository extends JpaRepository<DailyMenu, Integer> {
 
     //DailyMenu findById(int id);
 
-    //Optional<DailyMenu> findByCustomerAndCreatedDate(Customer customer, LocalDate createdDate);
+    Optional<DailyMenu> findByCustomerLoginAndCreatedDate(String login, LocalDate createdDate);
+    Optional<DailyMenu> findByCustomerLogin(String login);
+    Optional<DailyMenu> findByCustomerIdAndCreatedDate(int id, LocalDate createdDate);
     Optional<DailyMenu> findByCustomerId(int customerId/*, LocalDate createdDate*/);
     //DailyMenu findByCustomerId(int customerId/*, LocalDate localDate*/);
     //DailyMenu findByCustomer(Customer customer/*, LocalDate localDate*/);

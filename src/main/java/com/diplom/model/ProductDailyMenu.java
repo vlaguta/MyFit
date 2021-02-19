@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Data
@@ -20,8 +22,9 @@ public class ProductDailyMenu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="product_id")
-    private int productId;
+    @OneToOne
+    @JoinColumn(name="product_id")
+    private Product product;
 
     @Column(name="daily_menu_id")
     private int dailyMenuId;

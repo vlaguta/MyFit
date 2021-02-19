@@ -33,7 +33,6 @@ public class RegistrationController {
 
         if (bindingResult.hasErrors()) {
             return "security/registration";
-
         }
         if (customerService.saveCustomer(customerForm))
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");

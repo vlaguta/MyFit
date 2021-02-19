@@ -1,5 +1,6 @@
 package com.diplom.service;
 
+import com.diplom.Exceptions.BusinessException;
 import com.diplom.model.Customer;
 import com.diplom.model.Photo;
 import com.diplom.repository.CustomerRepository;
@@ -67,8 +68,7 @@ public class PhotoServiceImpl implements PhotoService {
             photo.setUrl("/" + file.getOriginalFilename());
             photoRepository.save(photo);
         } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-
+            throw new BusinessException("Could not store the file. Error: " + e.getMessage());
         }
     }
 
@@ -83,7 +83,7 @@ public class PhotoServiceImpl implements PhotoService {
         try {
             return Files.walk(this.PhotoDirectoryPath, 1).filter(path -> !path.equals(this.PhotoDirectoryPath)).map(this.PhotoDirectoryPath::relativize);
         } catch (IOException e) {
-            throw new RuntimeException("Could not load the files!");
+            throw new BusinessException("Could not load the files!");
         }
     }
 

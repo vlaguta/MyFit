@@ -1,5 +1,6 @@
 package com.diplom.service;
 
+import com.diplom.Exceptions.BusinessException;
 import com.diplom.dto.CustomerDto;
 import com.diplom.enums.Activity;
 import com.diplom.enums.Sex;
@@ -50,7 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public CustomerDto getCustomer(String login) {
-        CustomerDto customerDto=convertCustomerEntityToCustomerDto(customerRepository.findCustomerByLogin(login).orElse(null));
+        CustomerDto customerDto = convertCustomerEntityToCustomerDto(customerRepository.findCustomerByLogin(login).orElse(null));
         customerDto.setBasicMetabolism(getBasicMetabolism(customerDto));
         customerDto.setWeightLossCalories(getWeightLossCalories(customerDto));
         customerDto.setWeightGainCalories(getWeightGainCalories(customerDto));
@@ -77,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void updateCustomer(int id, CustomerDto customerDto) {
 
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Невозможно обновить пользователя. Пользователь не найден"));
+                .orElseThrow(() -> new BusinessException("Невозможно обновить пользователя. Пользователь не найден"));
         if (customerDto.getSex() != null) {
             customer.setSex(customerDto.getSex());
         }

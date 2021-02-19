@@ -3,10 +3,13 @@ package com.diplom.controller;
 import com.diplom.dto.ProductDto;
 import com.diplom.model.Product;
 import com.diplom.service.CategoryService;
+import com.diplom.service.DailyMenuService;
 import com.diplom.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/products")
@@ -14,10 +17,12 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final DailyMenuService dailyMenuService;
 
-    public ProductController(ProductService productService, CategoryService categoryService) {
+    public ProductController(ProductService productService, CategoryService categoryService, DailyMenuService dailyMenuService) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.dailyMenuService = dailyMenuService;
     }
 
     //выводит все продукты
@@ -40,6 +45,14 @@ public class ProductController {
     public String newProduct(Model model){
         model.addAttribute("product", new Product());
         return "products/new";
+    }
+
+    @GetMapping("/search")
+    public String getProduct(@RequestParam(value = "name") String name, Model model, Principal principal) {
+        model.addAttribute("products", productService.getProducts(name));
+        model.addAttribute("dailyMenu", dailyMenuService.getDailyMenu(principal.getName()));
+
+        return "products/showProduct";
     }
 
     //создание продукта

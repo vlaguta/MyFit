@@ -31,7 +31,14 @@ public class ProductService {
         return convertProductEntityToDto(productRepository.findById(id));
     }
 
+    public List<ProductDto> getProducts(String name){
+        return productRepository.findByNameContainingIgnoreCase(name).stream()
+                .map(ProductConverter::convertProductEntityToDto)
+                .collect(Collectors.toList());
+    }
+
     public void saveProduct(ProductDto productDto) {
+
         productRepository.save(converterProductDtoToEntity(productDto));
     }
 

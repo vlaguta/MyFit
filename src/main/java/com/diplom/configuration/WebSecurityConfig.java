@@ -35,22 +35,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         String[] staticResources  =  {
-                "/static/images/**",
-                "static/images/**",
-                "/static/**",
-                "/templates/**",
-                "/resources/**"
+                //"",
         };
 
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(staticResources).permitAll()
-                .antMatchers("/", "/profile", "/registration", "/images/1.jpg", "/files").permitAll()
+                .antMatchers("/", "/profile", "/registration"/*, "/images/1.jpg", "/files"*/).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                //.loginPage("/login")
+                //.loginPage("/customers/login")
                 .permitAll()
                 .and()
                 .logout()

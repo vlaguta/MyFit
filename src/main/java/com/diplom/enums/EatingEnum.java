@@ -17,4 +17,7 @@ public enum EatingEnum {
     public int getCode() {
         return code;
     }
+
+    //табл id name для кажд пользователя, в продуктах ссылка на ка
+    //перечень типов еды
 }

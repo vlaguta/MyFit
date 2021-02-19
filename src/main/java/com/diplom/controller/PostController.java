@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 
@@ -29,8 +31,10 @@ public class PostController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("post") PostDto postDto, Principal principal){
-        postService.savePost(postDto, principal.getName());
+    public String create(@ModelAttribute("post") PostDto postDto,
+                         @RequestParam("file") MultipartFile file,
+                         Principal principal){
+        postService.savePost(file,postDto, principal.getName());
         return "redirect:/profile";
     }
 }
