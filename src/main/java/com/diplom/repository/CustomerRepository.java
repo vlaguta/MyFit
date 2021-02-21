@@ -12,6 +12,7 @@ import java.util.Optional;
     public void deleteById(int id);
 
     public Customer findByName(String name);
+    public Optional<Customer> findById(int id);
 
     public Optional<Customer> findCustomerByLogin(String login);
 }

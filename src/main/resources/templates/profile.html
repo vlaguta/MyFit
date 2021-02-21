@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
-
-
-
-
-
-
         * {
             box-sizing: border-box;
         }
@@ -139,8 +133,13 @@
     <a th:href="@{/customers/profile}">Моя страница</a>
     <a th:href="@{/daily-menus}">Дневник питания</a>
     <a th:href="@{/products}">Таблица продуктов</a>
-    <a th:href="@{/registration}" class="right">Регистрация</a>
-    <a th:href="@{/logout}" class="right">Выйти из аккаунта</a>
+
+
+
+    <p th:if="${customer== null}"><a th:href="@{/registration}" class="right">Регистрация</a></p>
+
+<!--    <a th:href="@{/registration}" class="right">Регистрация</a>-->
+    <p th:if="${customer!= null}"><a th:href="@{/logout}" class="right">Выйти из аккаунта</a></p>
     <a th:href="@{/login}" class="right">Авторизация</a>
 </div>
 

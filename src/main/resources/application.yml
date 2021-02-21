@@ -14,5 +14,8 @@ spring:
 
 logging:
   pattern:
-    level: DEBUG
+    level: TRACE
     org.springframework.transaction: trace
+    org.springframework.web: trace
+    guru.springframework.controllers: trace
+    org.hibernate: trace

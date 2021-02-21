@@ -21,6 +21,7 @@ import java.util.stream.IntStream;
 
 import static com.diplom.utils.DailyMenuConverter.convertDailyMenuDtoToDailyMenuEntity;
 import static com.diplom.utils.DailyMenuConverter.convertDailyMenuEntityToDailyMenuDto;
+import static com.diplom.utils.ProductConverter.converterProductDtoToEntity;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 
@@ -97,17 +98,30 @@ public class DailyMenuService {
 
 
     //написать метод добавляющий продукты с учетом того, что лист продуктов может быть налл
-    public void addProductDailyMenu(int id, int productId /*Product product*/) {
-        DailyMenu dailyMenu=dailyMenuRepository.findById(id).orElseThrow(()->new BusinessException("Пищевой дневник не найден"));
-        Product product = ProductConverter.converterProductDtoToEntity(productService.getProduct(productId));
+    //public void addProductDailyMenu(int id, int productId /*Product product*/) {
+    //    DailyMenu dailyMenu=dailyMenuRepository.findById(id).orElseThrow(()->new BusinessException("Пищевой дневник не найден"));
+    //    Product product = ProductConverter.converterProductDtoToEntity(productService.getProduct(productId));
+    //    List<Product> products = dailyMenu.getProducts();
+    //    if(products==null){
+    //        products= new ArrayList<>();
+    //    }
+    //    products.add(product);
+    //    dailyMenu.setProducts(products);
+    //    }
+    //}
+
+    public void addProductDailyMenu(int id, ProductDto productDto /*Product product*/) {
+        DailyMenu dailyMenu=dailyMenuRepository.findById(id).orElseThrow(()->new BusinessException("Дневник питания не найден"));
+       //Product product = converterProductDtoToEntity(productService.getProduct(productDto.getId()));
+        Product product = converterProductDtoToEntity(productDto);
         List<Product> products = dailyMenu.getProducts();
         if(products==null){
             products= new ArrayList<>();
         }
         products.add(product);
         dailyMenu.setProducts(products);
-        }
     }
+}
 
     //надо как-то создавать дейли меню каждый день вне зависимости от того будет ли пользователь добавлять продукты или нет
 

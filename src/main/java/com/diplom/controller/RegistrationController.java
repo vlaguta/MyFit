@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
@@ -28,13 +30,15 @@ public class RegistrationController {
         return "security/registration";
     }
 
+
+    // сделать валидацию, возможно надо сделать еще один дто
     @PostMapping
-    public String addUser(@ModelAttribute("customerForm") CustomerDto customerForm, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("customerForm") @Valid CustomerDto customerDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "security/registration";
         }
-        if (customerService.saveCustomer(customerForm))
+        if (!customerService.saveCustomer(customerDto))
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
         return "profile";
     }

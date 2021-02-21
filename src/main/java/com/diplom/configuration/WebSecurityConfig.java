@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Autowired
     private CustomerService customerService;
 
@@ -42,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(staticResources).permitAll()
-                .antMatchers("/", "/profile", "/registration"/*, "/images/1.jpg", "/files"*/).permitAll()
+                .antMatchers("/", "/profile", "/registration", "/products").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -52,19 +51,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
     }
-
-    //@Override
-    //protected void configure(HttpSecurity http) throws Exception {
-    //    http
-    //            .csrf().disable()
-    //            .authorizeRequests()
-    //            .antMatchers("/", "/profile", "/registration").permitAll()
-    //            .anyRequest().authenticated()
-    //            .and()
-    //            .formLogin()
-    //            .loginPage("/customers/loginn")
-    //            .permitAll()
-    //            .and()
-    //            .logout().logoutSuccessUrl("/profile");
-    //}
 }

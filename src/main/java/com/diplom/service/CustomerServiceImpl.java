@@ -59,6 +59,15 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDto;
     }
 
+    public CustomerDto getCustomer(int id) {
+        CustomerDto customerDto = convertCustomerEntityToCustomerDto(customerRepository.findById(id).orElse(null));
+        customerDto.setBasicMetabolism(getBasicMetabolism(customerDto));
+        customerDto.setWeightLossCalories(getWeightLossCalories(customerDto));
+        customerDto.setWeightGainCalories(getWeightGainCalories(customerDto));
+        customerDto.setWeightMaintainCalories(getWeightMaintainCalories(customerDto));
+        return customerDto;
+    }
+
     @Override
     public boolean saveCustomer(CustomerDto customerdto) {
 
@@ -107,7 +116,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public double getBasicMetabolism(CustomerDto customerDto) {
-        if (Sex.ЖЕНСКИЙ == customerDto.getSex()) {
+        if (Sex.WOMEN == customerDto.getSex()) {
             return WEIGHT_COEFFICIENT * customerDto.getWeight() + HEIGHT_COEFFICIENT * customerDto.getHeight() - AGE_COEFFICIENT * customerDto.getAge() - WOMEN_COEFFICIENT;
         } else {
             return WEIGHT_COEFFICIENT * customerDto.getWeight() + HEIGHT_COEFFICIENT * customerDto.getHeight() - AGE_COEFFICIENT * customerDto.getAge() - MEN_COEFFICIENT;
@@ -124,9 +133,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     public double getWeightMaintainCalories(CustomerDto customerDto) { //предусмотреть нулпоинтр
 
-        if (Activity.НИЗКАЯ == customerDto.getActivity()) {
+        if (Activity.LOW == customerDto.getActivity()) {
             return getBasicMetabolism(customerDto) * LOW_ACTIVITY_COEFFICIENT;
-        } else if (Activity.СРЕДНЯЯ == customerDto.getActivity()) {
+        } else if (Activity.MEDIUM == customerDto.getActivity()) {
             return getBasicMetabolism(customerDto) * MEDIUM_ACTIVITY_COEFFICIENT;
         } else {
             return getBasicMetabolism(customerDto) * HIGH_ACTIVITY_COEFFICIENT;

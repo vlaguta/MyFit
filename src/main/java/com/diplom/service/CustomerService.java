@@ -1,7 +1,6 @@
 package com.diplom.service;
 
 import com.diplom.dto.CustomerDto;
-import com.diplom.model.Customer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface CustomerService extends UserDetailsService {
@@ -12,9 +11,14 @@ public interface CustomerService extends UserDetailsService {
 
     public CustomerDto getCustomer(String login);
 
+    public CustomerDto getCustomer(int id);
+
     public double getWeightLossCalories(CustomerDto customer);
+
     public double getWeightGainCalories(CustomerDto customer);
+
     public double getWeightMaintainCalories(CustomerDto customer);
+
     public double getBasicMetabolism(CustomerDto customer);
 
 }

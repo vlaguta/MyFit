@@ -34,11 +34,11 @@ public class ProductController {
     }
 
     //показывает один продукт
-    @GetMapping("/{id}")
-    public String getProduct(@PathVariable("id") int id, Model model){
-        model.addAttribute("product", productService.getProduct(id));
-        return "products/showProduct";
-    }
+    //@GetMapping("/{id}")
+    //public String getProduct(@PathVariable("id") int id, Model model){
+    //    model.addAttribute("product", productService.getProduct(id));
+    //    return "products/showProduct";
+    //}
 
     //выводит форму для создания продукта
     @GetMapping("/new")
@@ -51,7 +51,6 @@ public class ProductController {
     public String getProduct(@RequestParam(value = "name") String name, Model model, Principal principal) {
         model.addAttribute("products", productService.getProducts(name));
         model.addAttribute("dailyMenu", dailyMenuService.getDailyMenu(principal.getName()));
-
         return "products/showProduct";
     }
 

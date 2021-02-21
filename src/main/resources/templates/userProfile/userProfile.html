@@ -82,8 +82,19 @@
         </div><!--/col-3-->
         <div class="col-sm-9">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                <li><a data-toggle="tab" href="#messages">Изменить данные</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">Мои данные</a></li>
+<!--                <li><a data-toggle="tab" href="#messages">Изменить данные</a></li>-->
+
+                <div class="inputButton">
+                    <form th:action="@{/customers/{id}/edit (id=${user.id})}" th:method="get">
+                        <input class="inputButton" type="submit" value="Изменить данные"/>
+                    </form>
+                </div>
+                <div class="inputButton">
+                    <form th:action="@{/profile}" th:method="get">
+                        <input class="inputButton" type="submit" value="Вернуться на главную"/>
+                    </form>
+                </div>
             </ul>
 
             <div class="tab-content">
@@ -148,44 +159,47 @@
                 <div class="tab-pane" id="messages">
 
                     <hr>
-                    <form class="form" th:method="PATCH" th:action="@{/customers/{id}(id=${user.getId()})}" th:object="${user}">
-                        <div class="form-group">
+<!--                    <form class="form" th:method="PATCH" th:action="@{/customers/{id}(id=${user.getId()})}" th:object="${user}">-->
+<!--                        <div class="form-group">-->
 
-                            <div class="col-xs-6">
-                                <label for="height"><h4>Рост</h4></label>
-                                <input type="text" class="form-control" name="height" id="height" placeholder="введите рост (см)">
-                            </div>
-                        </div>
-                        <div class="form-group">
+<!--                            <div class="col-xs-6">-->
+<!--                                <label for="height"><h4>Рост</h4></label>-->
+<!--                                <input type="number" class="form-control" th:field="*{height}" name="height" id="height" placeholder="введите рост (см)">-->
+<!--                                <div th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Height error</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
 
-                            <div class="col-xs-6">
-                                <label for="weight"><h4>Вес</h4></label>
-                                <input type="text" class="form-control" name="weight" id="weight" placeholder="введите вес (кг)">
-                            </div>
-                        </div>
+<!--                            <div class="col-xs-6">-->
+<!--                                <label for="weight"><h4>Вес</h4></label>-->
+<!--                                <input type="number" class="form-control" th:field="*{weight}" name="weight" id="weight" placeholder="введите вес (кг)">-->
+<!--                                <div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Weight error</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="form-group">
+<!--                        <div class="form-group">-->
 
-                            <div class="col-xs-6">
-                                <label for="age"><h4>Возраст</h4></label>
-                                <input type="text" class="form-control" name="age" id="age" placeholder="введите возраст">
-                            </div>
-                        </div>
-                        <br>
+<!--                            <div class="col-xs-6">-->
+<!--                                <label for="age"><h4>Возраст</h4></label>-->
+<!--                                <input type="number" class="form-control" th:field="*{age}" name="age" id="age" placeholder="введите возраст">-->
+<!--                                <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <br>-->
 
-                        <p>Пол:</p>
-                        <p><input name="sex" type="radio" value="МУЖСКОЙ"> Мужской</p>
-                        <p><input name="sex" type="radio" value="ЖЕНСКИЙ"> Женский</p>
-                        <!--                        <p><input type="submit" value="Выбрать"></p>-->
+<!--                        <p>Пол:</p>-->
+<!--                        <p><input name="sex" type="radio" value="MEN"> Мужской</p>-->
+<!--                        <p><input name="sex" type="radio" value="WOMEN"> Женский</p>-->
+<!--                        &lt;!&ndash;                        <p><input type="submit" value="Выбрать"></p>&ndash;&gt;-->
 
-                        <p>Выбери свою активность:</p>
-                        <p><input name="activity" type="radio" value="НИЗКАЯ"> Низкая (сидячий образ жизни, работа в офисе)</p>
-                        <p><input name="activity" type="radio" value="СРЕДНЯЯ"> Средняя (1-3 тренировки в неделю)</p>
-                        <p><input name="activity" type="radio" value="ВЫСОКАЯ"> Высокая (3 и более тренировок в неделю)</p>
-                        <div class="pure-controls">
-                            <button type="submit" class="pure-button pure-button-primary"> Сохранить</button>
-                        </div>
-                    </form>
+<!--                        <p>Выбери свою активность:</p>-->
+<!--                        <p><input name="activity" type="radio" value="LOW"> Низкая (сидячий образ жизни, работа в офисе)</p>-->
+<!--                        <p><input name="activity" type="radio" value="MEDIUM"> Средняя (1-3 тренировки в неделю)</p>-->
+<!--                        <p><input name="activity" type="radio" value="HIGH"> Высокая (3 и более тренировок в неделю)</p>-->
+<!--                        <div class="pure-controls">-->
+<!--                            <button type="submit" class="pure-button pure-button-primary"> Сохранить</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
                 </div>
             </div>
         </div>

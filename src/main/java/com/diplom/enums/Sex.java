@@ -2,8 +2,8 @@ package com.diplom.enums;
 
 public enum Sex {
 
-    МУЖСКОЙ(0),
-    ЖЕНСКИЙ(1);
+    MEN(0),
+    WOMEN(1);
 
     private final int code;
 
