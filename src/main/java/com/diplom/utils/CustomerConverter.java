@@ -1,6 +1,7 @@
 package com.diplom.utils;
 
 import com.diplom.dto.CustomerDto;
+import com.diplom.dto.CustomerRegistrationDto;
 import com.diplom.model.Customer;
 
 public class CustomerConverter {
@@ -14,8 +15,8 @@ public class CustomerConverter {
                 .weight(customer.getWeight())
                 .height(customer.getHeight())
                 .activity(customer.getActivity())
-                .login(customer.getLogin())
-                .password(customer.getPassword())
+                //.login(customer.getLogin())
+                //.password(customer.getPassword())
                 .roles(customer.getRoles())
                 .sex(customer.getSex())
                 .build();
@@ -30,10 +31,28 @@ public class CustomerConverter {
                 .weight(customerDto.getWeight())
                 .height(customerDto.getHeight())
                 .activity(customerDto.getActivity())
-                .login(customerDto.getLogin())
-                .password(customerDto.getPassword())
+                //.login(customerDto.getLogin())
+                //.password(customerDto.getPassword())
                 .roles(customerDto.getRoles())
                 .sex(customerDto.getSex())
+                .build();
+    }
+
+    public static CustomerRegistrationDto convertCustomerEntityToCustomerRegistrationDto(Customer customer){
+
+        return CustomerRegistrationDto.builder()
+                .id(customer.getId())
+                .login(customer.getLogin())
+                .password(customer.getPassword())
+                .build();
+    }
+
+    public static Customer convertCustomerRegistrationDtoToCustomerEntity(CustomerRegistrationDto customerRegistrationDto) {
+
+        return Customer.builder()
+                .id(customerRegistrationDto.getId())
+                .login(customerRegistrationDto.getLogin())
+                .password(customerRegistrationDto.getPassword())
                 .build();
     }
 }

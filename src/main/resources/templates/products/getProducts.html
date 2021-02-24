@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>All products</title>
-    <script>
-        $(window).on("load resize ", function () {
-            var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-            $('.tbl-header').css({'padding-right': scrollWidth});
-        }).resize();
-    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <style>
         .container {
             display: -webkit-flex;
@@ -138,6 +133,9 @@
             -webkit-box-shadow: 0 5px 0 #769f96;
             -moz-box-shadow: 0 5px 0 #082f27;
         }
+        .center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -171,19 +169,28 @@
         </table>
     </div>
 
-    <div class="inputButton">
+<!--    <div class="inputButton">-->
+<!--        <form th:action="@{/products/new}" method="get">-->
+<!--            <input class="inputButton" type="submit" value="Добавить продукт"/>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    <div class="inputButton">-->
+<!--        <form th:action="@{/profile}" method="get">-->
+<!--            <input class="inputButton" type="submit" value="Назад"/>-->
+<!--        </form>-->
+<!--    </div>-->
+
+    <div class="center">
         <form th:action="@{/products/new}" method="get">
-            <input class="inputButton" type="submit" value="Добавить продукт"/>
+            <button type="submit" class="btn btn-outline-light">Добавить продукт</button>
         </form>
     </div>
-
-    <div class="inputButton">
+    <br>
+    <div class="center">
         <form th:action="@{/profile}" method="get">
-            <input class="inputButton" type="submit" value="Назад"/>
+            <button type="submit" class="btn btn-outline-light">Назад</button>
         </form>
-    </div>
-
-    </div>
     </div>
 </section>
 </body>

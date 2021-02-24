@@ -112,10 +112,12 @@
 <body>
 <div class="container">
     <div id="logbox">
-        <form th:action="@{/registration}" method="post">
+        <form th:action="@{/registration}" th:method="post" th:object="${customer}">
             <h1>Создайте аккаунт</h1>
             <input class="input pass" name="login" type="text" placeholder="Логин" required="required"/>
+            <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Age error</div>
             <input class="input pass" name="password" type="password" placeholder="Пароль" required="required"/>
+            <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Age error</div>
             <input class="inputButton" type="submit" value="Зарегистрироваться"/>
         </form>
           <form th:action="@{/profile}" method="get">

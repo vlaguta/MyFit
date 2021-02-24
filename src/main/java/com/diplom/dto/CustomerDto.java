@@ -30,11 +30,7 @@ public class CustomerDto {
     private int age;
     private Sex sex;
     private Activity activity;
-    @Size(min=6, max = 15, message = "Количество знаков должно быть в диапазоне от 6 до 15")
-    //@NotEmpty(message = "Поле должно быть заполнено")
     private String login;
-    @Size(min=5, message = "Минимальное количество знаков - 5")
-    //@NotEmpty(message = "Поле должно быть заполнено")
     private String password;
     private Set<Role> roles;
     private double basicMetabolism;

@@ -24,7 +24,7 @@ public class FoodDiary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDateTime data;
+    private LocalDateTime date;
 
     @OneToOne(optional = false, mappedBy = "foodDiary")
     private Customer customer;

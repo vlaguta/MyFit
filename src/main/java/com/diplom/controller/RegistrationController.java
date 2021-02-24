@@ -1,6 +1,7 @@
 package com.diplom.controller;
 
 import com.diplom.dto.CustomerDto;
+import com.diplom.dto.CustomerRegistrationDto;
 import com.diplom.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,20 +27,22 @@ public class RegistrationController {
 
     @GetMapping
     public String registration(Model model) {
-        model.addAttribute("customerForm", new CustomerDto());
+        model.addAttribute("customer", new CustomerRegistrationDto());
         return "security/registration";
     }
 
-
-    // сделать валидацию, возможно надо сделать еще один дто
     @PostMapping
-    public String addUser(@ModelAttribute("customerForm") @Valid CustomerDto customerDto, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("customer") @Valid CustomerRegistrationDto customerRegistrationDto,
+                          BindingResult bindingResult,
+                          Model model) {
 
         if (bindingResult.hasErrors()) {
             return "security/registration";
         }
-        if (!customerService.saveCustomer(customerDto))
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-        return "profile";
+        if (!customerService.saveCustomer(customerRegistrationDto)) {
+            model.addAttribute("customerError", "Пользователь с таким именем уже существует");
+            return "profile";
+        }
+        return "redirect:/profile";
     }
 }

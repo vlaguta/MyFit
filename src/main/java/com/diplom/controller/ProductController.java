@@ -7,8 +7,10 @@ import com.diplom.service.DailyMenuService;
 import com.diplom.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -56,7 +58,11 @@ public class ProductController {
 
     //создание продукта
     @PostMapping
-    public String create(@ModelAttribute("product") ProductDto productDto){
+    public String create(@ModelAttribute("product") @Valid ProductDto productDto,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "products/new";
+        }
         productService.saveProduct(productDto);
         return "redirect:/products";
     }

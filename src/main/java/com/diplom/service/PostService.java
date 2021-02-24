@@ -29,20 +29,26 @@ public class PostService {
     private final Path PhotoDirectoryPath = Paths.get("src/main/resources/static");
 
     public void savePost(MultipartFile file, PostDto postDto, String login) {
-        try {
-            Files.copy(file.getInputStream(), this.PhotoDirectoryPath.resolve(file.getOriginalFilename()));
 
-            Photo photo = new Photo();
-            photo.setName(file.getOriginalFilename());
-            photo.setUrl("/" + file.getOriginalFilename());
-            //photo.setPost(PostConverter.convertPostDtoToPostEntity(postDto)); //так можно делать?
-            photoRepository.save(photo);
+        if (file.getSize() == 0) {
             postDto.setCreatedDate(LocalDateTime.now());
             postDto.setCustomer(customerRepository.findCustomerByLogin(login).orElse(null));
-            postDto.setPhoto(photo);
             postRepository.save(PostConverter.convertPostDtoToPostEntity(postDto));
-        } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        } else {
+            try {
+                Files.copy(file.getInputStream(), this.PhotoDirectoryPath.resolve(file.getOriginalFilename()));
+                Photo photo = new Photo();
+                photo.setName(file.getOriginalFilename());
+                photo.setUrl("/" + file.getOriginalFilename());
+                //photo.setPost(PostConverter.convertPostDtoToPostEntity(postDto)); //так можно делать?
+                photoRepository.save(photo);
+                postDto.setCreatedDate(LocalDateTime.now());
+                postDto.setCustomer(customerRepository.findCustomerByLogin(login).orElse(null));
+                postDto.setPhoto(photo);
+                postRepository.save(PostConverter.convertPostDtoToPostEntity(postDto));
+            } catch (Exception e) {
+                throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            }
         }
     }
 
@@ -61,5 +67,3 @@ public class PostService {
                     .collect(Collectors.toList());
         }
     }
-
-

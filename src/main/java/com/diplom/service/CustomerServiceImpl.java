@@ -2,6 +2,7 @@ package com.diplom.service;
 
 import com.diplom.Exceptions.BusinessException;
 import com.diplom.dto.CustomerDto;
+import com.diplom.dto.CustomerRegistrationDto;
 import com.diplom.enums.Activity;
 import com.diplom.enums.Sex;
 import com.diplom.model.Customer;
@@ -30,6 +31,7 @@ import static com.diplom.utils.CoefficientUtils.WEIGHT_LOSS_COEFFICIENT;
 import static com.diplom.utils.CoefficientUtils.WOMEN_COEFFICIENT;
 import static com.diplom.utils.CustomerConverter.convertCustomerDtoToCustomerEntity;
 import static com.diplom.utils.CustomerConverter.convertCustomerEntityToCustomerDto;
+import static com.diplom.utils.CustomerConverter.convertCustomerRegistrationDtoToCustomerEntity;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -69,9 +71,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean saveCustomer(CustomerDto customerdto) {
+    public boolean saveCustomer(CustomerRegistrationDto customerRegistrationDto) {
 
-        Customer customer = convertCustomerDtoToCustomerEntity(customerdto);
+        Customer customer = convertCustomerRegistrationDtoToCustomerEntity(customerRegistrationDto);
         Customer customerFromBd = customerRepository.findCustomerByLogin(customer.getLogin()).orElse(null);
 
         if (customerFromBd != null) {

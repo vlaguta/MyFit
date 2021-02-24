@@ -132,23 +132,19 @@
     <a href="#" class="active">Главная страница</a>
     <a th:href="@{/customers/profile}">Моя страница</a>
     <a th:href="@{/daily-menus}">Дневник питания</a>
+    <a th:href="@{/food-diaries}">Журнал</a>
     <a th:href="@{/products}">Таблица продуктов</a>
-
-
-
     <p th:if="${customer== null}"><a th:href="@{/registration}" class="right">Регистрация</a></p>
-
-<!--    <a th:href="@{/registration}" class="right">Регистрация</a>-->
     <p th:if="${customer!= null}"><a th:href="@{/logout}" class="right">Выйти из аккаунта</a></p>
     <a th:href="@{/login}" class="right">Авторизация</a>
 </div>
 
 <div class="row">
     <div class="main">
-        <h2>Лента новостей</h2>
+        <h2 th:text="#{news}"></h2>
         <div class="inputButton">
             <form th:action="@{/posts/new}" method="get">
-                <input class="inputButton" type="submit" value="Добавить пост"/>
+                <input class="inputButton" type="submit" th:value="#{add_post}"/>
             </form>
         </div>
         <body>

@@ -32,7 +32,7 @@ public class PostController {
 
     @PostMapping
     public String create(@ModelAttribute("post") PostDto postDto,
-                         @RequestParam("file") MultipartFile file,
+                         @RequestParam(value = "file", required = false) MultipartFile file,
                          Principal principal){
         postService.savePost(file,postDto, principal.getName());
         return "redirect:/profile";

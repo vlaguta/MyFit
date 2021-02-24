@@ -53,30 +53,35 @@
     <fieldset>
         <div class="pure-control-group">
             <label for="name">Название продукта: </label>
-            <input type="text" th:field="*{name}" id="name" placeholder="Название продукта" />
+            <input type="text" th:field="*{name}" id="name" placeholder="Название продукта" required />
         </div>
         <p></p>
         <div class="pure-control-group">
             <label for="calories">Калорийность</label>
-            <input type="number"  th:field="*{calories}" id="calories" placeholder="Калорийность" />
+            <input type="number"  th:field="*{calories}" id="calories" placeholder="Калорийность" required />
+            <div style="color:red" th:if="${#fields.hasErrors('calories')}" th:errors="*{calories}">Height error</div>
         </div>
         <p></p>
 
         <div class="pure-control-group">
             <label for="protein">Белки</label>
-            <input type="number" th:field="*{protein}" id="protein" placeholder="Белки" />
+            <input type="number" th:field="*{protein}" id="protein" placeholder="Белки" required />
+            <div style="color:red" th:if="${#fields.hasErrors('protein')}" th:errors="*{protein}">Height error</div>
         </div>
         <p></p>
 
         <div class="pure-control-group">
             <label for="fat">Жиры</label>
-            <input type="number" th:field="*{fat}" id="fat" placeholder="Жиры" />
+            <input type="number" th:field="*{fat}" id="fat" placeholder="Жиры" required/>
+            <div style="color:red" th:if="${#fields.hasErrors('fat')}" th:errors="*{fat}">Height error</div>
         </div>
         <p></p>
 
         <div class="pure-control-group">
             <label for="carbonhydrates">Углеводы </label>
             <input type="number" th:field="*{carbonhydrates}" id="carbonhydrates" placeholder="Углеводы" />
+            <div style="color:red" th:if="${#fields.hasErrors('carbonhydrates')}" th:errors="*{carbonhydrates}">Height error</div>
+
         </div>
         <p></p>
 
