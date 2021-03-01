@@ -32,7 +32,6 @@ public class Product {
     private int fat;
     private int protein;
     private int carbonhydrates;
-    private int weight;
     @ManyToOne
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;

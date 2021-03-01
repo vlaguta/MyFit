@@ -10,11 +10,11 @@ public class ProductConverter {
         return  ProductDto.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .calories(product.getCalories())
+                .nominalCalories(product.getCalories())
                 .carbonhydrates(product.getCarbonhydrates())
                 .fat(product.getFat())
                 .protein(product.getProtein())
-                .weight(product.getWeight())
+                //.weight(product.getWeight())
                 .build();
     }
 
@@ -23,11 +23,11 @@ public class ProductConverter {
         return  Product.builder()
                 .id(productDto.getId())
                 .name(productDto.getName())
-                .calories(productDto.getCalories())
+                .calories(productDto.getNominalCalories())
                 .carbonhydrates(productDto.getCarbonhydrates())
                 .fat(productDto.getFat())
                 .protein(productDto.getProtein())
-                .weight(productDto.getWeight())
+                //.weight(productDto.getWeight())
                 .build();
     }
 }

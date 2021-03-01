@@ -52,8 +52,9 @@ public class ProductController {
     @GetMapping("/search")
     public String getProduct(@RequestParam(value = "name") String name, Model model, Principal principal) {
         model.addAttribute("products", productService.getProducts(name));
+        //model.addAttribute("product", productService.getProducts(name).get(0));
         model.addAttribute("dailyMenu", dailyMenuService.getDailyMenu(principal.getName()));
-        return "products/showProduct";
+        return "dailyMenu/addProductToDailyMenu";
     }
 
     //создание продукта

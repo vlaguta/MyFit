@@ -1,6 +1,7 @@
 package com.diplom.service;
 
 import com.diplom.dto.ProductDto;
+import com.diplom.enums.Eating;
 import com.diplom.model.DailyMenu;
 import com.diplom.model.ProductDailyMenu;
 import com.diplom.repository.ProductDailyMenuRepository;
@@ -21,6 +22,18 @@ public class ProductDailyMenuService {
 
     public List<ProductDailyMenu> get(int dailyId){
        return productDailyMenuRepository.findAllProductDailyMenuByDailyMenuId(dailyId);
+    }
+
+    public void save(ProductDailyMenu productDailyMenu){
+         productDailyMenuRepository.save(productDailyMenu);
+    }
+
+    public List<ProductDailyMenu> getAll(){
+       return productDailyMenuRepository.findAll();
+    }
+
+    public ProductDailyMenu get(int dailyId, Eating eating, int productId){
+        return productDailyMenuRepository.findByDailyMenuIdAndEatingAndProductId(dailyId, eating, productId);
     }
 
 }

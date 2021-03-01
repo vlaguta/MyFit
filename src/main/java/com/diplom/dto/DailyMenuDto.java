@@ -15,10 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 public class DailyMenuDto {
 
-    private List<Product> products;
-    private LocalDate createdDate;
+    //private List<Product> products;
+    //private LocalDate createdDate;
     private int id;
-    private String name;
+    //private String name;
     private List<ProductDto> breakfast;
     private List<ProductDto> dinner;
     private List<ProductDto> supper;

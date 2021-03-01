@@ -97,7 +97,8 @@
     <thead>
     <tr>
         <th>Наименование продукта</th>
-        <th>Калории</th>
+        <th>Калории на 100 г</th>
+        <th>Калории на порцию</th>
         <th>Белки</th>
         <th>Жиры</th>
         <th>Углеводы</th>
@@ -109,8 +110,8 @@
         <td colspan="5">
             <label>Завтрак</label>
             <div class="inputButton">
-                <form th:action="@{/add}" method="get">
-                    <input type="submit" value="Добавить продукт" style="float: right;"/>
+                <form th:action="@{/add}"  method="get">
+                    <button th:name="eating" th:value="BREAKFAST" style="float: right;">Добавить продукт </button>
                 </form>
             </div>
         </td>
@@ -120,7 +121,8 @@
     <tr th:each="product : ${dailyMenu.breakfast}">
         <br>
         <td><span th:text="${product.name}">  </span></td>
-        <td><span th:text="${product.calories}">  </span></td>
+        <td><span th:text="${product.nominalCalories}">  </span></td>
+        <td><span th:text="${product.factualCalories}">  </span></td>
         <td><span th:text="${product.protein}">  </span></td>
         <td><span th:text="${product.fat}">  </span></td>
         <td><span th:text="${product.carbonhydrates}">  </span></td>
@@ -131,7 +133,7 @@
             <label>Обед</label>
             <div class="inputButton">
                 <form th:action="@{/add}" method="get">
-                    <input type="submit" value="Добавить продукт" style="float: right;"/>
+                    <button th:name="eating" th:value="DINNER" style="float: right;">Добавить продукт </button>
                 </form>
             </div>
         </td>
@@ -140,7 +142,8 @@
     <tr th:each="product : ${dailyMenu.dinner}">
         <br>
         <td><span th:text="${product.name}">  </span></td>
-        <td><span th:text="${product.calories}">  </span></td>
+        <td><span th:text="${product.nominalCalories}">  </span></td>
+        <td><span th:text="${product.factualCalories}">  </span></td>
         <td><span th:text="${product.protein}">  </span></td>
         <td><span th:text="${product.fat}">  </span></td>
         <td><span th:text="${product.carbonhydrates}">  </span></td>
@@ -151,7 +154,7 @@
             <label>Ужин</label>
             <div class="inputButton">
                 <form th:action="@{/add}" method="get">
-                    <input type="submit" value="Добавить продукт" style="float: right;"/>
+                    <button th:name="eating" th:value="SUPPER" style="float: right;">Добавить продукт </button>
                 </form>
             </div>
         </td>
@@ -160,7 +163,8 @@
     <tr th:each="product : ${dailyMenu.supper}">
         <br>
         <td><span th:text="${product.name}">  </span></td>
-        <td><span th:text="${product.calories}">  </span></td>
+        <td><span th:text="${product.nominalCalories}">  </span></td>
+        <td><span th:text="${product.factualCalories}">  </span></td>
         <td><span th:text="${product.protein}">  </span></td>
         <td><span th:text="${product.fat}">  </span></td>
         <td><span th:text="${product.carbonhydrates}">  </span></td>
@@ -173,6 +177,7 @@
         </td>
     </tr>
     </tbody>
+    <td></td>
     <td><td><span th:text="${dailyMenu.generalCalories}">  </span></td></td>
 </table>
 

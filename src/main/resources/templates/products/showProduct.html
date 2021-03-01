@@ -26,20 +26,25 @@
 <!--</tr>-->
 
 
-<th:block th:each="product: ${products}">
+<div th:each="product: ${products}">
     <form th:method="post" th:object="${product}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">
-        <td><span th:text="${product.name}">  </span></td>
-        <td><span th:text="${product.calories}">  </span></td>
-        <td><span th:text="${product.protein}">  </span></td>
-        <td><span th:text="${product.fat}">  </span></td>
-        <td><span th:text="${product.carbonhydrates}">  </span></td>
+        <input th:value="*{name}" name="name"> </input>
+        <input th:value="*{calories}" name="calories"> </input>
+        <input th:value="*{protein}" name="protein"> </input>
+        <input th:value="*{fat}" name="fat"> </input>
+        <input th:value="*{carbonhydrates}" name="carbonhydrates"> </input>
         <button class="submit-button" type="submit">+</button>
     </form>
-</th:block>
-
-
-
-
+</div>
+<!--</th:block>-->
+<!--<form th:method="post" th:object="${product}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">-->
+<!--    <input th:field="*{name}"> </input>-->
+<!--    <input th:field="*{calories}"> </input>-->
+<!--    <input th:field="*{protein}"> </input>-->
+<!--    <input th:field="*{fat}"> </input>-->
+<!--    <input th:field="*{carbonhydrates}"> </input>-->
+<!--    <button class="submit-button" type="submit">+</button>-->
+<!--</form>-->
 
 <!--<th:block th:each="product: ${products}">-->
 <!--    <form th:method="post" th:object="${product}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">-->
@@ -58,10 +63,6 @@
 <!--</th:block>-->
 
 
-
-
-
-
 <!--<p th:text="${product.getId()}">VALUE</p>-->
 
 <!--<a th:href="@{/products/{id}/edit(id=${product.getId()})}">Edit</a>-->
@@ -69,16 +70,6 @@
 <!--<form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">-->
 <!--    <input type="submit" value="Delete"/>-->
 <!--</form>-->
-
-
-
-
-
-
-
-
-
-
 
 
 <!--<th:block th:each="product: ${products}">-->

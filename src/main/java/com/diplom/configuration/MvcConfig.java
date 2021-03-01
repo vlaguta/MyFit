@@ -1,9 +1,11 @@
 package com.diplom.configuration;
 
+import com.diplom.utils.EnumConverter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -58,4 +60,9 @@ public class MvcConfig implements WebMvcConfigurer {
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }
+
+    //@Override
+    //public void addFormatters(FormatterRegistry registry) {
+    //    registry.addConverter(new EnumConverter());
+    //}
 }
