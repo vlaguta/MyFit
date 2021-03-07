@@ -24,6 +24,7 @@
         <tbody>
         <tr th:each="dailyMenu : ${foodDiary}">
             <td><span th:text="${dailyMenu.createdDate}">  </span></td>
+            <td><span th:text="${dailyMenu.generalCalories}">  </span></td>
 <!--            <td><span th:text="${dailyMenu.calories}">  </span></td>-->
 <!--            <td><span th:text="${product.protein}">  </span></td>-->
 <!--            <td><span th:text="${product.fat}">  </span></td>-->

@@ -2,6 +2,7 @@ package com.diplom.controller;
 
 import com.diplom.dto.ProductDto;
 import com.diplom.model.Product;
+import com.diplom.service.AddProductRequestService;
 import com.diplom.service.CategoryService;
 import com.diplom.service.DailyMenuService;
 import com.diplom.service.ProductService;
@@ -20,11 +21,13 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final DailyMenuService dailyMenuService;
+    private final AddProductRequestService addProductRequestService;
 
-    public ProductController(ProductService productService, CategoryService categoryService, DailyMenuService dailyMenuService) {
+    public ProductController(ProductService productService, CategoryService categoryService, DailyMenuService dailyMenuService, AddProductRequestService addProductRequestService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.dailyMenuService = dailyMenuService;
+        this.addProductRequestService = addProductRequestService;
     }
 
     //выводит все продукты
@@ -52,10 +55,16 @@ public class ProductController {
     @GetMapping("/search")
     public String getProduct(@RequestParam(value = "name") String name, Model model, Principal principal) {
         model.addAttribute("products", productService.getProducts(name));
-        //model.addAttribute("product", productService.getProducts(name).get(0));
-        model.addAttribute("dailyMenu", dailyMenuService.getDailyMenu(principal.getName()));
+        model.addAttribute("dailyMenu", dailyMenuService.getDailyMenuDto(principal.getName()));
         return "dailyMenu/addProductToDailyMenu";
     }
+
+    //@GetMapping("/search")
+    //public String getProduct(@RequestParam(value = "name") String name, Model model, Principal principal) {
+    //    model.addAttribute("productRequest", addProductRequestService.addProductToRequest(name));
+    //    model.addAttribute("dailyMenu", dailyMenuService.getDailyMenu(principal.getName()));
+    //    return "dailyMenu/addProductToDailyMenu";
+    //}
 
     //создание продукта
     @PostMapping

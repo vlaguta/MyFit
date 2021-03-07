@@ -32,7 +32,7 @@ public class DailyMenuService {
     private final CustomerRepository customerRepository;
     private final ProductDailyMenuService productDailyMenuService;
 
-    public DailyMenuDto getDailyMenu(String login) {
+    public DailyMenuDto getDailyMenuDto(String login) {
 
         DailyMenu dailyMenu = dailyMenuRepository.findByCustomerLogin(login /* LocalDate.now()*/)
                 .orElse(null);
@@ -46,8 +46,8 @@ public class DailyMenuService {
         return DailyMenuDto.builder()
                 .id(dailyMenu.getId())
                 .breakfast(getEatingProducts(productsByEating.get(Eating.BREAKFAST), dailyMenu.getId(), Eating.BREAKFAST))
-                .dinner(getEatingProducts(productsByEating.get(Eating.DINNER),dailyMenu.getId(), Eating.DINNER))
-                .supper(getEatingProducts(productsByEating.get(Eating.SUPPER),dailyMenu.getId(), Eating.SUPPER))
+                .dinner(getEatingProducts(productsByEating.get(Eating.DINNER), dailyMenu.getId(), Eating.DINNER))
+                .supper(getEatingProducts(productsByEating.get(Eating.SUPPER), dailyMenu.getId(), Eating.SUPPER))
                 .generalCalories(getGeneralCalories(getDailyMenuProducts(productsByEating)))
                 //.generalProteins()
                 //.generalFats()
@@ -61,9 +61,13 @@ public class DailyMenuService {
                 .stream()
                 .map(ProductConverter::convertProductEntityToDto)
                 .map(productDto -> {
-                    ProductDailyMenu productDailyMenu=productDailyMenuService.get(dailyMenuId, eating, productDto.getId());
-                    productDto.setFactualCalories(productDto.getNominalCalories() *productDailyMenu.getProductWeight()/100);
-                return productDto; })
+                    ProductDailyMenu productDailyMenu = productDailyMenuService.get(dailyMenuId, eating, productDto.getId());
+                    productDto.setFactualCalories(productDto.getNominalCalories() * productDailyMenu.getProductWeight() / 100);
+                    productDto.setFactualCarbonhydrates(productDto.getCarbonhydrates() * productDailyMenu.getProductWeight() / 100);
+                    productDto.setFactualProtein(productDto.getProtein() * productDailyMenu.getProductWeight() / 100);
+                    productDto.setFactualFat(productDto.getFat() * productDailyMenu.getProductWeight() / 100);
+                    return productDto;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -75,14 +79,6 @@ public class DailyMenuService {
                 .collect(Collectors.toList());
     }
 
-    //пока не используется (возвращает калорийность каждого приема пищи)
-    //public int getEatingCalories(List<Product> products) {
-    //    return products.stream()
-    //            .map(Product::getCalories)
-    //            .flatMapToInt(IntStream::of)
-    //            .sum();
-    //}
-
     private int getGeneralCalories(List<Product> products) {
 
         return products.stream()
@@ -93,12 +89,13 @@ public class DailyMenuService {
 
     //метод создающий дэйли меню каждый день в 00,00 для каждого пользователя
     public void saveDailyMenuForEveryCustomer() {
+
         customerRepository.findAll()
                 .forEach(this::saveDailyMenu);
     }
 
-
     public void saveDailyMenu(Customer customer) {
+
         DailyMenu dailyMenu = new DailyMenu();
         dailyMenu.setCreatedDate(LocalDate.now());
         dailyMenu.setCustomer(customer);
@@ -109,37 +106,25 @@ public class DailyMenuService {
         dailyMenuRepository.deleteById(id);
     }
 
+    public void addProductToDailyMenu(int dailyMenuId, ProductDto productDto, Eating eating) {
 
-    //написать метод добавляющий продукты с учетом того, что лист продуктов может быть налл
-    //public void addProductDailyMenu(int id, int productId /*Product product*/) {
-    //    DailyMenu dailyMenu=dailyMenuRepository.findById(id).orElseThrow(()->new BusinessException("Пищевой дневник не найден"));
-    //    Product product = ProductConverter.converterProductDtoToEntity(productService.getProduct(productId));
-    //    List<Product> products = dailyMenu.getProducts();
-    //    if(products==null){
-    //        products= new ArrayList<>();
-    //    }
-    //    products.add(product);
-    //    dailyMenu.setProducts(products);
-    //    }
-    //}
+        ProductDailyMenu productDailyMenuFromDb = productDailyMenuService.get(dailyMenuId, eating, productDto.getId());
+        DailyMenu dailyMenu = dailyMenuRepository.findById(dailyMenuId).orElse(new DailyMenu());
 
-    public void addProductToDailyMenu(int id, ProductDto productDto, Eating eating /*Product product*/) {
-        //
-        //DailyMenu dailyMenu = dailyMenuRepository.findById(id).orElseThrow(() -> new BusinessException("Дневник питания не найден"));
-        //Product product = converterProductDtoToEntity(productDto);
-        //List<Product> products = dailyMenu.getProducts();
-        //if (products == null) {
-        //    products = new ArrayList<>();
-        //}
-        //products.add(product);
-        //dailyMenu.setProducts(products);
-
-        ProductDailyMenu productDailyMenu = new ProductDailyMenu();
-        productDailyMenu.setDailyMenuId(id);
-        productDailyMenu.setProduct(converterProductDtoToEntity(productDto));
-        productDailyMenu.setEating(eating);
-        productDailyMenu.setProductWeight(productDto.getWeight());
-        productDailyMenuService.save(productDailyMenu);
+        if (productDailyMenuFromDb == null) {
+            ProductDailyMenu productDailyMenu = new ProductDailyMenu();
+            productDailyMenu.setDailyMenuId(dailyMenuId);
+            productDailyMenu.setProduct(converterProductDtoToEntity(productDto));
+            productDailyMenu.setEating(eating);
+            productDailyMenu.setProductWeight(productDto.getWeight());
+            productDailyMenuService.save(productDailyMenu);
+        } else {
+            int weight = productDailyMenuFromDb.getProductWeight() + productDto.getWeight();
+            productDailyMenuFromDb.setProductWeight(weight);
+            dailyMenu.setGeneralCalories(dailyMenu.getGeneralCalories() + productDto.getFactualCalories());
+            dailyMenuRepository.save(dailyMenu);
+            productDailyMenuService.save(productDailyMenuFromDb);
+        }
     }
 
     public List<DailyMenuDto> getAllDailyMenus() {

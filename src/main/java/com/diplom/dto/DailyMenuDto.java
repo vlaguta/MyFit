@@ -23,9 +23,10 @@ public class DailyMenuDto {
     private List<ProductDto> dinner;
     private List<ProductDto> supper;
     private int generalCalories;
-    private int generalProteins;
-    private int generalFats;
-    private int generalCarbonhydrates;
+    private int generalProteins=0;
+    private int generalFats=0;
+    private int generalCarbonhydrates=0;
+    private LocalDate createdDate;
 
 
     // private Customer customer; // не уверена, что нужно это поле в дто

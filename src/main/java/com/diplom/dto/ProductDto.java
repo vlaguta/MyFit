@@ -23,4 +23,7 @@ public class ProductDto {
     private int carbonhydrates;
     private int weight;
     private int factualCalories;
+    private int factualCarbonhydrates;
+    private int factualFat;
+    private int factualProtein;
 }

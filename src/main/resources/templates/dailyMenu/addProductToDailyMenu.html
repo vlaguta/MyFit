@@ -18,7 +18,7 @@
 </div>
 <br>
 <div th:each="product: ${products}">
-    <form th:method="post" th:object="${product}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">
+    <form th:method="post" th:object="${product}"  th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}" >
         <input type="hidden" th:value="*{id}" name="id"> </input>
         <input th:value="*{name}" name="name" readonly="readonly"> </input>
         <input th:value="*{nominalCalories}" name="calories" readonly="readonly"> </input>
