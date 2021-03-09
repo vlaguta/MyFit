@@ -2,16 +2,16 @@ package com.diplom.enums;
 
 public enum Sex {
 
-    MEN(0),
-    WOMEN(1);
+    MEN("Мужской"),
+    WOMEN("Женский");
 
-    private final int code;
+    private final String code;
 
-    Sex(int code) {
+    Sex(String code) {
         this.code = code;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 }

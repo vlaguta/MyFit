@@ -52,18 +52,18 @@ public class PostService {
         }
     }
 
-        public void deletePost (Post post){
-            postRepository.delete(post);
-        }
-
-        public void update () {
-        }
-
-        public List<Post> getAllPosts () {
-            return postRepository.findAll()
-                    .stream()
-                    .sorted(Comparator.comparing(Post::getCreatedDate)
-                            .reversed())
-                    .collect(Collectors.toList());
-        }
+    public void deletePost(Post post) {
+        postRepository.delete(post);
     }
+
+    public void update() {
+    }
+
+    public List<Post> getAllPosts() {
+        return postRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Post::getCreatedDate)
+                        .reversed())
+                .collect(Collectors.toList());
+    }
+}

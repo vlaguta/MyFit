@@ -23,10 +23,10 @@ import java.security.Principal;
 public class DailyMenuController {
 
     private final DailyMenuService dailyMenuService;
-    private final CustomerService customerService;
-    private final ProductService productService;
-    private final ProductDailyMenuService productDailyMenuService;
-    private final AddProductRequestService addProductRequestService;
+    //private final CustomerService customerService;
+    //private final ProductService productService;
+    //private final ProductDailyMenuService productDailyMenuService;
+    //private final AddProductRequestService addProductRequestService;
 
     @GetMapping("/daily-menus")
     public String getDailyMenuById(Model model, Principal principal) {
@@ -43,22 +43,9 @@ public class DailyMenuController {
 
     @PostMapping("/daily-menus/{dailyMenuId}/products")
     public String addDailyMenu(@ModelAttribute("product") ProductDto product,
-                               @ModelAttribute("eating") String eating,
+                               //@ModelAttribute("eating") String eating,
                                @PathVariable("dailyMenuId") int dailyMenuId) {
-        dailyMenuService.addProductToDailyMenu(dailyMenuId, product, Eating.valueOf("BREAKFAST"));
+        dailyMenuService.addProductToDailyMenu(dailyMenuId, product, Eating.valueOf(product.getEating()));
         return "redirect:/daily-menus";
     }
-
-    //@PostMapping("/daily-menus/{dailyMenuId}/products")
-    //public String addDailyMenu(@ModelAttribute("productEating") AddProductRequest addProductRequest,
-    //                           @PathVariable("dailyMenuId") int dailyMenuId) {
-    //    dailyMenuService.addProductToDailyMenu(dailyMenuId, product, Eating.valueOf(eating));
-    //    return "redirect:/daily-menus";
-    //}
-
-    //удаление дэйли меню
-    //@DeleteMapping("/daily-menus/{id}")
-    //public void deleteDailyMenu(@PathVariable(value = "id") Integer dailyMenuId) {
-    //    dailyMenuService.deleteDailyMenu(dailyMenuId);
-    //}
 }

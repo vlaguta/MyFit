@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.diplom.utils.ProductConverter.convertProductEntityToDto;
 import static com.diplom.utils.ProductConverter.converterProductDtoToEntity;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
@@ -43,16 +44,16 @@ public class DailyMenuService {
                 .collect(groupingBy(ProductDailyMenu::getEating,
                         mapping(ProductDailyMenu::getProduct, Collectors.toList())));
 
-        return DailyMenuDto.builder()
+        return  DailyMenuDto.builder()
                 .id(dailyMenu.getId())
                 .breakfast(getEatingProducts(productsByEating.get(Eating.BREAKFAST), dailyMenu.getId(), Eating.BREAKFAST))
                 .dinner(getEatingProducts(productsByEating.get(Eating.DINNER), dailyMenu.getId(), Eating.DINNER))
                 .supper(getEatingProducts(productsByEating.get(Eating.SUPPER), dailyMenu.getId(), Eating.SUPPER))
-                .generalCalories(getGeneralCalories(getDailyMenuProducts(productsByEating)))
-                //.generalProteins()
-                //.generalFats()
-                //.generalCarbonhydrates()
+                .generalCalories(getGeneralCalories(getEatingProducts(productsByEating.get(Eating.BREAKFAST),dailyMenu.getId(), Eating.BREAKFAST))+
+                (getGeneralCalories(getEatingProducts(productsByEating.get(Eating.DINNER),dailyMenu.getId(), Eating.DINNER)))+
+                (getGeneralCalories(getEatingProducts(productsByEating.get(Eating.SUPPER),dailyMenu.getId(), Eating.SUPPER))))
                 .build();
+
     }
 
     private List<ProductDto> getEatingProducts(List<Product> products, int dailyMenuId, Eating eating) {
@@ -79,10 +80,10 @@ public class DailyMenuService {
                 .collect(Collectors.toList());
     }
 
-    private int getGeneralCalories(List<Product> products) {
+    private int getGeneralCalories(List<ProductDto> products) {
 
         return products.stream()
-                .map(Product::getCalories)
+                .map(ProductDto::getFactualCalories)
                 .flatMapToInt(IntStream::of)
                 .sum();
     }
@@ -102,14 +103,14 @@ public class DailyMenuService {
         dailyMenuRepository.save(dailyMenu);
     }
 
-    public void deleteDailyMenu(int id) {
-        dailyMenuRepository.deleteById(id);
-    }
+    //public void deleteDailyMenu(int id) {
+    //    dailyMenuRepository.deleteById(id);
+    //}
 
     public void addProductToDailyMenu(int dailyMenuId, ProductDto productDto, Eating eating) {
 
         ProductDailyMenu productDailyMenuFromDb = productDailyMenuService.get(dailyMenuId, eating, productDto.getId());
-        DailyMenu dailyMenu = dailyMenuRepository.findById(dailyMenuId).orElse(new DailyMenu());
+        //DailyMenu dailyMenu = dailyMenuRepository.findById(dailyMenuId).orElse(new DailyMenu());
 
         if (productDailyMenuFromDb == null) {
             ProductDailyMenu productDailyMenu = new ProductDailyMenu();
@@ -121,8 +122,6 @@ public class DailyMenuService {
         } else {
             int weight = productDailyMenuFromDb.getProductWeight() + productDto.getWeight();
             productDailyMenuFromDb.setProductWeight(weight);
-            dailyMenu.setGeneralCalories(dailyMenu.getGeneralCalories() + productDto.getFactualCalories());
-            dailyMenuRepository.save(dailyMenu);
             productDailyMenuService.save(productDailyMenuFromDb);
         }
     }

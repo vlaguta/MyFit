@@ -13,6 +13,7 @@
 <div class="container">
     <form th:action="@{/products/search}" method="get">
         <input type="text" th:name="name"/>
+        <input type="hidden" th:value="${eating}" th:name="eating"/>
         <input type="submit" value="Поиск"/>
     </form>
 </div>
@@ -26,6 +27,7 @@
         <input th:value="*{fat}" name="fat" readonly="readonly"> </input>
         <input th:value="*{carbonhydrates}" name="carbonhydrates" readonly="readonly"> </input>
         <input th:value="*{weight}" name="weight" required="required"> </input>
+        <input type="hidden" th:value="${eating}" name="eating" id="eating"> </input>
         <button class="submit-button" type="submit">+</button>
     </form>
 </div>

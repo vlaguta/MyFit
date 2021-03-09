@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -86,6 +87,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void updateCustomer(int id, CustomerDto customerDto) {
 
         Customer customer = customerRepository.findById(id)
@@ -105,7 +107,6 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerDto.getActivity() != null) {
             customer.setActivity(customerDto.getActivity());
         }
-        customerRepository.save(customer);
     }
 
     public void deleteCustomer(int id) {

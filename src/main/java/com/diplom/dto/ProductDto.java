@@ -26,4 +26,6 @@ public class ProductDto {
     private int factualCarbonhydrates;
     private int factualFat;
     private int factualProtein;
+
+    private String eating;
 }
