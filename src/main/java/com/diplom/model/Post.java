@@ -12,15 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Table(name = "post")
@@ -34,22 +29,15 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String text;
-    @Column(name="created_date")
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    //@ManyToMany(cascade = CascadeType.ALL)
-    //@JoinTable(
-    //        name = "post_photo",
-    //        joinColumns = {@JoinColumn(name = "post_id")},
-    //        inverseJoinColumns = {@JoinColumn(name = "photo_id")})
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "photo_id")
     private Photo photo;
 
-    @OneToMany(mappedBy = "post")
-    private Set<Comment> comments;
 }

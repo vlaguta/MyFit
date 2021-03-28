@@ -1,15 +1,12 @@
 package com.diplom.controller;
 
-import com.diplom.dto.CustomerDto;
-import com.diplom.dto.ProductDto;
-import com.diplom.model.Customer;
+import com.diplom.controller.dto.CustomerDto;
 import com.diplom.service.CustomerService;
 import com.diplom.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -41,10 +38,8 @@ public class CustomerController {
         return "security/login";
     }
 
-
-    //форма для редактирования пользователя
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id){
+    public String edit(Model model, @PathVariable("id") Integer id) {
         model.addAttribute("user", customerService.getCustomer(id));
         return "userProfile/edit";
     }
@@ -52,8 +47,8 @@ public class CustomerController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid CustomerDto customerDto,
                          BindingResult bindingResult,
-                         @PathVariable("id") int id){
-        if(bindingResult.hasErrors()){
+                         @PathVariable("id") Integer id) {
+        if (bindingResult.hasErrors()) {
             return "userProfile/edit";
         }
         customerService.updateCustomer(id, customerDto);

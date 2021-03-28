@@ -1,9 +1,8 @@
 package com.diplom.controller;
 
-import com.diplom.dto.CustomerDto;
-import com.diplom.dto.CustomerRegistrationDto;
+import com.diplom.controller.dto.CustomerRegistrationDto;
 import com.diplom.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,14 +15,10 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registration")
+@RequiredArgsConstructor
 public class RegistrationController {
 
-    private CustomerService customerService;
-
-    @Autowired
-    public RegistrationController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    private final CustomerService customerService;
 
     @GetMapping
     public String registration(Model model) {

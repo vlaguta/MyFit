@@ -144,9 +144,9 @@
         <td><span th:text="${product.name}">  </span></td>
         <td><span th:text="${product.nominalCalories}">  </span></td>
         <td><span th:text="${product.factualCalories}">  </span></td>
-        <td><span th:text="${product.protein}">  </span></td>
-        <td><span th:text="${product.fat}">  </span></td>
-        <td><span th:text="${product.carbonhydrates}">  </span></td>
+        <td><span th:text="${product.factualProtein}">  </span></td>
+        <td><span th:text="${product.factualFat}">  </span></td>
+        <td><span th:text="${product.factualCarbonhydrates}">  </span></td>
     </tr>
     <tbody class="labels">
     <tr>
@@ -165,9 +165,9 @@
         <td><span th:text="${product.name}">  </span></td>
         <td><span th:text="${product.nominalCalories}">  </span></td>
         <td><span th:text="${product.factualCalories}">  </span></td>
-        <td><span th:text="${product.protein}">  </span></td>
-        <td><span th:text="${product.fat}">  </span></td>
-        <td><span th:text="${product.carbonhydrates}">  </span></td>
+        <td><span th:text="${product.factualProtein}">  </span></td>
+        <td><span th:text="${product.factualFat}">  </span></td>
+        <td><span th:text="${product.factualCarbonhydrates}">  </span></td>
     </tr>
     </tbody>
     <tbody class="labels">
@@ -179,6 +179,9 @@
     </tbody>
     <td></td>
     <td><td><span th:text="${dailyMenu.generalCalories}">  </span></td></td>
+    <td><span th:text="${dailyMenu.generalProteins}">  </span></td>
+    <td><span th:text="${dailyMenu.generalFats}">  </span></td>
+    <td><span th:text="${dailyMenu.generalCarbonhydrates}">  </span></td>
 </table>
 
 <div class="inputButton">

@@ -1,27 +1,21 @@
 package com.diplom.service;
 
-import com.diplom.dto.CustomerDto;
-import com.diplom.dto.CustomerRegistrationDto;
+import com.diplom.controller.dto.CustomerDto;
+import com.diplom.controller.dto.CustomerRegistrationDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 public interface CustomerService extends UserDetailsService {
 
-    //boolean saveCustomer(CustomerDto customerDto);
+    List<CustomerDto> getAllCustomer();
 
     boolean saveCustomer(CustomerRegistrationDto customerRegistrationDto);
 
-    public void updateCustomer(int id, CustomerDto customerDto);
+    void updateCustomer(int id, CustomerDto customerDto);
 
-    public CustomerDto getCustomer(String login);
+    CustomerDto getCustomer(String login);
 
-    public CustomerDto getCustomer(int id);
-
-    public double getWeightLossCalories(CustomerDto customer);
-
-    public double getWeightGainCalories(CustomerDto customer);
-
-    public double getWeightMaintainCalories(CustomerDto customer);
-
-    public double getBasicMetabolism(CustomerDto customer);
+    CustomerDto getCustomer(int id);
 
 }

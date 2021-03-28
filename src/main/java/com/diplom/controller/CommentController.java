@@ -1,28 +1,37 @@
 package com.diplom.controller;
 
+import com.diplom.controller.dto.CommentDto;
 import com.diplom.model.Comment;
 import com.diplom.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-@RestController
+import java.security.Principal;
+
+@Controller
+@RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CommentController {
-
     private final CommentService commentService;
 
-    @PostMapping("/comments")
-    public void addComment(Comment comment) {
-        commentService.saveComment(comment);
-    } //криэйт
+    @GetMapping("/new")
+    public String newComment(Model model) {
+        model.addAttribute("comment", new Comment());
+        return "comment/new";
+    }
 
-    @DeleteMapping("comments/{id}")
-    public void deleteComment (
-            @PathVariable(value = "id") Integer commentId) {
-        Comment comment = commentService.getComment(commentId);
-        commentService.deleteComment(comment);
+    @PostMapping
+    public String create(@ModelAttribute("comment") CommentDto commentDto,
+                         @RequestParam(value = "file", required = false) MultipartFile file,
+                         Principal principal) {
+        commentService.saveComment(file, commentDto, principal.getName());
+        return "redirect:/profile";
     }
 }

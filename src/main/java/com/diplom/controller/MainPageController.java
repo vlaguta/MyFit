@@ -1,8 +1,6 @@
 package com.diplom.controller;
 
 import com.diplom.service.CustomerService;
-import com.diplom.service.DailyMenuService;
-import com.diplom.service.PhotoService;
 import com.diplom.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,26 +13,17 @@ import java.security.Principal;
 @Controller
 @RequestMapping
 @AllArgsConstructor
-public class Ccontroller {
+public class MainPageController {
 
-    private final DailyMenuService dailyMenuService;
     private final PostService postService;
-    private final PhotoService photoService;
     private final CustomerService customerService;
-
-    @GetMapping("/menu")
-    public String getMenu(Model model) {
-        model.addAttribute("menu");
-        return "menu";
-    }
 
     @GetMapping("/profile")
     public String getCustomerProfile(Model model, Principal principal) {
         model.addAttribute("posts", postService.getAllPosts());
-        if(principal!=null){
+        if (principal != null) {
             model.addAttribute("customer", customerService.getCustomer(principal.getName()));
         }
-        //model.addAttribute("dailyMenu", dailyMenuService.getDailyMenu())
         return "profile";
     }
 }

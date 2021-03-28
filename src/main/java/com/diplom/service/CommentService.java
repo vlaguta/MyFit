@@ -1,30 +1,15 @@
 package com.diplom.service;
 
+import com.diplom.controller.dto.CommentDto;
 import com.diplom.model.Comment;
-import com.diplom.model.Product;
-import com.diplom.repository.CommentRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
-@RequiredArgsConstructor
-public class CommentService {
+import java.util.List;
 
-    private final CommentRepository commentRepository;
+public interface CommentService {
 
-    public Comment getComment(int id){
-        return commentRepository.findById(id);
-    }
+    void saveComment(MultipartFile file, CommentDto commentDto, String login);
 
-    public void saveComment(Comment comment){
-        commentRepository.save(comment);
-    }
+    List<Comment> getAllComment();
 
-    public void deleteComment(Comment comment){
-        commentRepository.delete(comment);
-    }
-
-    public void updateComment(Comment comment){
-       // здесь будет приходить объект коммент или можно через сеттер апдейтить текст
-    }
 }

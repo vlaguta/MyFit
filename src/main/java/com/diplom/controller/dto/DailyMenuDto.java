@@ -1,6 +1,5 @@
-package com.diplom.dto;
+package com.diplom.controller.dto;
 
-import com.diplom.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,19 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 public class DailyMenuDto {
 
-    //private List<Product> products;
-    //private LocalDate createdDate;
     private int id;
-    //private String name;
+    private String name;
     private List<ProductDto> breakfast;
     private List<ProductDto> dinner;
     private List<ProductDto> supper;
     private int generalCalories;
-    private int generalProteins=0;
-    private int generalFats=0;
-    private int generalCarbonhydrates=0;
+    private int generalProteins;
+    private int generalFats = 0;
+    private int generalCarbonhydrates = 0;
     private LocalDate createdDate;
 
-
-    // private Customer customer; // не уверена, что нужно это поле в дто
 }

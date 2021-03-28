@@ -33,19 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        String[] staticResources  =  {
-                //"",
-        };
-
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(staticResources).permitAll()
                 .antMatchers("/", "/profile", "/registration", "/products").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                //.loginPage("/customers/login")
                 .permitAll()
                 .and()
                 .logout()

@@ -1,8 +1,9 @@
 package com.diplom.controller;
 
-import com.diplom.dto.PostDto;
+import com.diplom.controller.dto.PostDto;
 import com.diplom.model.Post;
 import com.diplom.service.PostService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +17,14 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/posts")
+@RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
 
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
 
     @GetMapping("/new")
-    public String newPost(Model model){
+    public String newPost(Model model) {
         model.addAttribute("post", new Post());
         return "posts/new";
     }
@@ -33,8 +32,8 @@ public class PostController {
     @PostMapping
     public String create(@ModelAttribute("post") PostDto postDto,
                          @RequestParam(value = "file", required = false) MultipartFile file,
-                         Principal principal){
-        postService.savePost(file,postDto, principal.getName());
+                         Principal principal) {
+        postService.savePost(file, postDto, principal.getName());
         return "redirect:/profile";
     }
 }

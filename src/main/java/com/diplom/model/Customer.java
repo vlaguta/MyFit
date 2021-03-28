@@ -1,17 +1,18 @@
 package com.diplom.model;
 
-import com.diplom.enums.Activity;
-import com.diplom.enums.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,10 +22,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
@@ -32,6 +29,10 @@ import java.util.Set;
 @Table(name = "customer")
 @Entity
 @Builder
+@TypeDef(
+        name = "pgsql_enum",
+        typeClass = PostgreSQLEnumType.class
+)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer implements UserDetails {
@@ -43,7 +44,11 @@ public class Customer implements UserDetails {
     private int weight;
     private int height;
     private int age;
+    @Type(type = "pgsql_enum")
+    @Enumerated(value = EnumType.STRING)
     private Sex sex;
+    @Type(type = "pgsql_enum")
+    @Enumerated(value = EnumType.STRING)
     private Activity activity;
     private String password;
     private String login;
@@ -51,22 +56,18 @@ public class Customer implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "daily_menu_id")
     private DailyMenu dailyMenu;
-
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "food_diary_id")
-    private FoodDiary foodDiary;
 
     @OneToMany(mappedBy = "customer")
     private Set<Post> posts;
 
     @OneToMany(mappedBy = "customer")
-    private Set<Photo> photos;
+    private Set<Comment> comment;
 
     @OneToMany(mappedBy = "customer")
-    private Set<Comment> comments;
+    private Set<Photo> photos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

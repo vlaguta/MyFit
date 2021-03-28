@@ -1,53 +1,21 @@
 package com.diplom.service;
 
-import com.diplom.dto.ProductDto;
-import com.diplom.model.Product;
-import com.diplom.repository.ProductRepository;
-
-import static com.diplom.utils.ProductConverter.convertProductEntityToDto;
-import static com.diplom.utils.ProductConverter.converterProductDtoToEntity;
-
-import com.diplom.utils.ProductConverter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.diplom.controller.dto.ProductDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-@RequiredArgsConstructor
-public class ProductService {
+public interface ProductService {
 
-    private final ProductRepository productRepository;
+    List<ProductDto> getAllProduct();
 
-    public List<ProductDto> getAllProduct() {
-        return productRepository.findAll()
-                .stream()
-                .map(ProductConverter::convertProductEntityToDto)
-                .collect(Collectors.toList());
-    }
+    ProductDto getProduct(int id);
 
-    public ProductDto getProduct(int id) {
-        return convertProductEntityToDto(productRepository.findById(id));
-    }
+    List<ProductDto> getProducts(String name);
 
-    public List<ProductDto> getProducts(String name){
-        return productRepository.findByNameContainingIgnoreCase(name).stream()
-                .map(ProductConverter::convertProductEntityToDto)
-                .collect(Collectors.toList());
-    }
+    void saveProduct(ProductDto productDto);
 
-    public void saveProduct(ProductDto productDto) {
+    void deleteProduct(int id);
 
-        productRepository.save(converterProductDtoToEntity(productDto));
-    }
-
-    public void deleteProduct(int id) {
-        productRepository.deleteById(id);
-    }
-
-    public void updateProduct(int id, ProductDto productDto){
-        productRepository.save(converterProductDtoToEntity(productDto));
-    }
+    void updateProduct(ProductDto productDto);
 }
 

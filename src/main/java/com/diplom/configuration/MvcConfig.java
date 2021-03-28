@@ -1,11 +1,9 @@
 package com.diplom.configuration;
 
-import com.diplom.utils.EnumConverter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,12 +18,16 @@ import java.util.Locale;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/profile").setViewName("profile");
         registry.addViewController("/").setViewName("profile");
         registry.addViewController("/customers/login");
         registry.addViewController("/registration").setViewName("/security/registration");
-        //registry.addViewController("/login").setViewName("/security/login");
     }
 
     @Bean
@@ -47,12 +49,7 @@ public class MvcConfig implements WebMvcConfigurer {
         return lci;
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-    }
-
-    @Bean("messageSource")
+    @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:messages.properties");
@@ -60,9 +57,4 @@ public class MvcConfig implements WebMvcConfigurer {
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }
-
-    //@Override
-    //public void addFormatters(FormatterRegistry registry) {
-    //    registry.addConverter(new EnumConverter());
-    //}
 }

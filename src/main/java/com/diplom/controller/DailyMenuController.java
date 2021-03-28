@@ -1,12 +1,8 @@
 package com.diplom.controller;
 
-import com.diplom.dto.ProductDto;
-import com.diplom.enums.Eating;
-import com.diplom.service.AddProductRequestService;
-import com.diplom.service.CustomerService;
+import com.diplom.controller.dto.ProductDto;
+import com.diplom.model.Eating;
 import com.diplom.service.DailyMenuService;
-import com.diplom.service.ProductDailyMenuService;
-import com.diplom.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +19,6 @@ import java.security.Principal;
 public class DailyMenuController {
 
     private final DailyMenuService dailyMenuService;
-    //private final CustomerService customerService;
-    //private final ProductService productService;
-    //private final ProductDailyMenuService productDailyMenuService;
-    //private final AddProductRequestService addProductRequestService;
 
     @GetMapping("/daily-menus")
     public String getDailyMenuById(Model model, Principal principal) {
@@ -43,8 +35,7 @@ public class DailyMenuController {
 
     @PostMapping("/daily-menus/{dailyMenuId}/products")
     public String addDailyMenu(@ModelAttribute("product") ProductDto product,
-                               //@ModelAttribute("eating") String eating,
-                               @PathVariable("dailyMenuId") int dailyMenuId) {
+                               @PathVariable("dailyMenuId") Integer dailyMenuId) {
         dailyMenuService.addProductToDailyMenu(dailyMenuId, product, Eating.valueOf(product.getEating()));
         return "redirect:/daily-menus";
     }

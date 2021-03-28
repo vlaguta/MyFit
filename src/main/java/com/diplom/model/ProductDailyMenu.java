@@ -1,8 +1,9 @@
 package com.diplom.model;
 
-import com.diplom.enums.Eating;
-import com.diplom.enums.PostgreSQLEnumType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -19,11 +20,14 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name="product_daily_menu")
+@Table(name = "product_daily_menu")
 @TypeDef(
         name = "pgsql_enum",
         typeClass = PostgreSQLEnumType.class
 )
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductDailyMenu {
 
     @Id
@@ -31,17 +35,17 @@ public class ProductDailyMenu {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="product_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name="daily_menu_id")
+    @Column(name = "daily_menu_id")
     private int dailyMenuId;
 
-    @Column(name="eating")
+    @Column(name = "eating")
     @Type(type = "pgsql_enum")
-    @Enumerated(value=EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private Eating eating;
 
-    @Column(name="product_weight")
+    @Column(name = "product_weight")
     private int productWeight;
 }

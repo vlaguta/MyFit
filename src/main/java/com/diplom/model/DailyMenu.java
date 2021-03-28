@@ -30,8 +30,8 @@ public class DailyMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
-    // поле с датой
     @Column(name = "created_date")
     private LocalDate createdDate;
     @ManyToMany(cascade = CascadeType.ALL)
@@ -40,13 +40,15 @@ public class DailyMenu {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
-    //@ManyToMany(mappedBy = "dailyMenus")
-    //private List<Product> products; //скорее всего не будет использоваться
-
     @OneToOne(optional = false, mappedBy = "dailyMenu")
     private Customer customer;
     @Column(name = "general_calories")
     private int generalCalories;
+    @Column(name = "general_proteins")
+    private int generalProteins;
+    @Column(name = "general_fats")
+    private int generalFats;
+    @Column(name = "general_carbonhydrates")
+    private int generalCarbonhydrates;
+
 }
-
-

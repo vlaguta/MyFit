@@ -118,6 +118,105 @@
                 width: 100%;
             }
         }
+
+
+        body {
+            color: #3b3b3b;
+            background: #3b3b3b;
+            font: 1em 'Open Sans', sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-weight: bolder;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        #content {
+            overflow: hidden;
+            background: white;
+            box-sizing: border-box;
+            width: 80%;
+            padding: 1em 5%;
+            margin: 2em auto;
+            box-shadow: 0.1em 0 2em black;
+        }
+
+        #content .thumbnail {
+            margin-bottom: 1em;
+        }
+
+        #content h2 {
+            font-size: 1.25em;
+            margin-bottom: 1em;
+        }
+
+        #content p {
+            margin-bottom: 1em;
+            line-spacing: 1.5;
+        }
+
+        #content ul {
+            margin: 0 auto 1em;
+        }
+
+        #content ul li {
+            border-bottom: 1px solid;
+            padding-bottom: 1em;
+        }
+
+        header {
+            margin: 0 0 1em;
+            overflow: hidden;
+        }
+
+        header h1 {
+            float: left;
+        }
+
+        header #view-control {
+            float: right;
+        }
+
+        .view-grid li {
+            width: 48%;
+            margin: 0 4% 2em 0;
+            float: left;
+        }
+
+        .view-grid li:nth-child(even) {
+            margin-right: 0;
+        }
+
+        .view-grid li .thumbnail img {
+            width: 100%;
+            height: auto;
+        }
+
+        .view-list li {
+            display: block;
+            clear: float;
+            overflow: hidden;
+            margin: 0 auto 2em;
+        }
+
+        .view-list li .thumbnail {
+            width: 30%;
+            margin: 0 5% 0 0;
+            float: left;
+        }
+
+        .view-list li .thumbnail img {
+            width: 100%;
+        }
+
+        .view-list li h2, .view-list li .excerpt, .view-list li .byline {
+            width: 65%;
+            float: right;
+        }
+
     </style>
 
 </head>
@@ -164,13 +263,24 @@
 </div>
 
 
+<!--<section>-->
+<!--    <ul id="post-list">-->
+<!--        <li>-->
+<!--            <tr th:each="post: ${posts}">-->
+<!--            <div class="thumbnail">-->
+<!--                <p th:if="${post.photo == null}"></p>-->
+<!--                <p th:if="${post.photo != null}"><img th:src="${post.photo.url}" width="300" height="333"/></p>-->
+<!--            </div>-->
+<!--                <td th:text="${post.customer.login}"/>-->
+<!--                <p th:text="${#temporals.format(post.createdDate, 'dd-MM-yyyy HH:mm')}"></p>-->
+<!--            <div class="excerpt">-->
+<!--                <td th:text="${post.text}"/>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</section>-->
 
 
-
-
-<div class="footer">
-    <h2>Footer</h2>
-</div>
 
 </body>
 </html>

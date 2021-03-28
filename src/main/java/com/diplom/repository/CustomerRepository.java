@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
- public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    public void deleteById(int id);
+    void deleteById(int id);
 
-    public Customer findByName(String name);
-    public Optional<Customer> findById(int id);
+    Optional<Customer> findById(int id);
 
-    public Optional<Customer> findCustomerByLogin(String login);
+    Optional<Customer> findCustomerByLogin(String login);
 }

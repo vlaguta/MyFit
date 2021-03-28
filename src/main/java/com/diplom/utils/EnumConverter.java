@@ -1,6 +1,6 @@
 package com.diplom.utils;
 
-import com.diplom.enums.Eating;
+import com.diplom.model.Eating;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +16,4 @@ public class EnumConverter implements Converter<String, Eating> {
             return null;
         }
     }
-
-    //@Override
-    //public void setAsText(final String text){
-    //    setValue(Eating.valueOf(text.toUpperCase()));
-    //}
 }

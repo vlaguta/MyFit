@@ -1,15 +1,15 @@
 package com.diplom.service;
 
 import com.diplom.Exceptions.BusinessException;
-import com.diplom.dto.CustomerDto;
-import com.diplom.dto.CustomerRegistrationDto;
-import com.diplom.enums.Activity;
-import com.diplom.enums.Sex;
+import com.diplom.controller.dto.CustomerDto;
+import com.diplom.controller.dto.CustomerRegistrationDto;
+import com.diplom.model.Activity;
+import com.diplom.model.Sex;
 import com.diplom.model.Customer;
-import com.diplom.model.Role;
 import com.diplom.repository.CustomerRepository;
+import com.diplom.repository.RoleRepository;
 import com.diplom.utils.CustomerConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,32 +20,28 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.diplom.utils.CoefficientUtils.AGE_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.HEIGHT_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.HIGH_ACTIVITY_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.LOW_ACTIVITY_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.MEDIUM_ACTIVITY_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.MEN_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.WEIGHT_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.WEIGHT_GAIN_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.WEIGHT_LOSS_COEFFICIENT;
-import static com.diplom.utils.CoefficientUtils.WOMEN_COEFFICIENT;
-import static com.diplom.utils.CustomerConverter.convertCustomerDtoToCustomerEntity;
+import static com.diplom.utils.CoefficientConstant.AGE_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.HEIGHT_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.HIGH_ACTIVITY_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.LOW_ACTIVITY_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.MEDIUM_ACTIVITY_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.MEN_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.WEIGHT_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.WEIGHT_GAIN_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.WEIGHT_LOSS_COEFFICIENT;
+import static com.diplom.utils.CoefficientConstant.WOMEN_COEFFICIENT;
 import static com.diplom.utils.CustomerConverter.convertCustomerEntityToCustomerDto;
 import static com.diplom.utils.CustomerConverter.convertCustomerRegistrationDtoToCustomerEntity;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
-        this.customerRepository = customerRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
+    @Override
     public List<CustomerDto> getAllCustomer() {
         return customerRepository.findAll()
                 .stream()
@@ -53,34 +49,32 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public CustomerDto getCustomer(String login) {
-        CustomerDto customerDto = convertCustomerEntityToCustomerDto(customerRepository.findCustomerByLogin(login).orElse(null));
-        customerDto.setBasicMetabolism(getBasicMetabolism(customerDto));
-        customerDto.setWeightLossCalories(getWeightLossCalories(customerDto));
-        customerDto.setWeightGainCalories(getWeightGainCalories(customerDto));
-        customerDto.setWeightMaintainCalories(getWeightMaintainCalories(customerDto));
-        return customerDto;
+        CustomerDto customerDto = convertCustomerEntityToCustomerDto(customerRepository.findCustomerByLogin(login)
+                .orElseThrow(() -> new BusinessException("Не удалось найти пользователя")));
+        return setCaloriesForCustomerDto(customerDto);
     }
 
+    @Override
     public CustomerDto getCustomer(int id) {
-        CustomerDto customerDto = convertCustomerEntityToCustomerDto(customerRepository.findById(id).orElse(null));
-        customerDto.setBasicMetabolism(getBasicMetabolism(customerDto));
-        customerDto.setWeightLossCalories(getWeightLossCalories(customerDto));
-        customerDto.setWeightGainCalories(getWeightGainCalories(customerDto));
-        customerDto.setWeightMaintainCalories(getWeightMaintainCalories(customerDto));
-        return customerDto;
+        CustomerDto customerDto = convertCustomerEntityToCustomerDto(customerRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Не удалось найти пользователя")));
+        return setCaloriesForCustomerDto(customerDto);
     }
 
     @Override
     public boolean saveCustomer(CustomerRegistrationDto customerRegistrationDto) {
 
         Customer customer = convertCustomerRegistrationDtoToCustomerEntity(customerRegistrationDto);
-        Customer customerFromBd = customerRepository.findCustomerByLogin(customer.getLogin()).orElse(null);
+        Customer customerFromBd = customerRepository.findCustomerByLogin(customer.getLogin())
+                .orElseThrow(() -> new BusinessException("Не удалось найти пользователя"));
 
         if (customerFromBd != null) {
             return false;
         }
-        customer.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
+
+        customer.setRoles(Collections.singleton(roleRepository.findByName("user")));
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customerRepository.save(customer);
         return true;
@@ -109,32 +103,42 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    public void deleteCustomer(int id) {
-        customerRepository.deleteById(id);
-    }
-
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        return customerRepository.findCustomerByLogin(login).orElse(null);
+        return customerRepository.findCustomerByLogin(login)
+                .orElseThrow(() -> new BusinessException("Не удалось найти пользователя"));
     }
 
-    public double getBasicMetabolism(CustomerDto customerDto) {
+    private double getBasicMetabolism(CustomerDto customerDto) {
         if (Sex.WOMEN == customerDto.getSex()) {
-            return WEIGHT_COEFFICIENT * customerDto.getWeight() + HEIGHT_COEFFICIENT * customerDto.getHeight() - AGE_COEFFICIENT * customerDto.getAge() - WOMEN_COEFFICIENT;
+            return WEIGHT_COEFFICIENT * customerDto.getWeight()
+                    + HEIGHT_COEFFICIENT * customerDto.getHeight()
+                    - AGE_COEFFICIENT * customerDto.getAge()
+                    - WOMEN_COEFFICIENT;
         } else {
-            return WEIGHT_COEFFICIENT * customerDto.getWeight() + HEIGHT_COEFFICIENT * customerDto.getHeight() - AGE_COEFFICIENT * customerDto.getAge() - MEN_COEFFICIENT;
+            return WEIGHT_COEFFICIENT * customerDto.getWeight()
+                    + HEIGHT_COEFFICIENT * customerDto.getHeight()
+                    - AGE_COEFFICIENT * customerDto.getAge()
+                    - MEN_COEFFICIENT;
         }
     }
+    private CustomerDto setCaloriesForCustomerDto(CustomerDto customerDto) {
+        customerDto.setBasicMetabolism(getBasicMetabolism(customerDto));
+        customerDto.setWeightLossCalories(getWeightLossCalories(customerDto));
+        customerDto.setWeightGainCalories(getWeightGainCalories(customerDto));
+        customerDto.setWeightMaintainCalories(getWeightMaintainCalories(customerDto));
+        return customerDto;
+    }
 
-    public double getWeightLossCalories(CustomerDto customerDto) {
+    private double getWeightLossCalories(CustomerDto customerDto) {
         return getWeightMaintainCalories(customerDto) * WEIGHT_LOSS_COEFFICIENT;
     }
 
-    public double getWeightGainCalories(CustomerDto customerDto) {
+    private double getWeightGainCalories(CustomerDto customerDto) {
         return getWeightMaintainCalories(customerDto) * WEIGHT_GAIN_COEFFICIENT;
     }
 
-    public double getWeightMaintainCalories(CustomerDto customerDto) { //предусмотреть нулпоинтр
+    private double getWeightMaintainCalories(CustomerDto customerDto) {
 
         if (Activity.LOW == customerDto.getActivity()) {
             return getBasicMetabolism(customerDto) * LOW_ACTIVITY_COEFFICIENT;
