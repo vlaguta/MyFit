@@ -11,7 +11,7 @@ public class CommentConverter {
 
         return CommentDto.builder()
                 .text(comment.getText())
-                .customer(comment.getCustomer())
+                .customerDto(CustomerConverter.convertCustomerEntityToCustomerDto(comment.getCustomer()))
                 .photo(comment.getPhoto())
                 .createdDate(comment.getCreatedDate())
                 .build();
@@ -20,7 +20,7 @@ public class CommentConverter {
     public static Comment convertCommentDtoToCommentEntity(CommentDto commentDto) {
         return Comment.builder()
                 .text(commentDto.getText())
-                .customer(commentDto.getCustomer())
+                .customer(CustomerConverter.convertCustomerDtoToCustomerEntity(commentDto.getCustomerDto()))
                 .photo(commentDto.getPhoto())
                 .createdDate(commentDto.getCreatedDate())
                 .build();
