@@ -29,13 +29,11 @@ public class PhotoServiceImpl implements PhotoService {
         init();
     }
 
-
     @Override
     public void saveOrUpdate(MultipartFile file, String login) {
         try {
             Files.copy(file.getInputStream(), this.PhotoDirectoryPath.resolve(file.getOriginalFilename()));
 
-            // TODO pochitat orElse vs orElseGet
             Photo photo = photoRepository.findByCustomerLogin(login)
                     .orElseGet(() -> Photo.builder()
                             .customer(customerRepository.findCustomerByLogin(login)

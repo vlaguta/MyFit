@@ -3,9 +3,9 @@ package com.diplom.service;
 import com.diplom.Exceptions.BusinessException;
 import com.diplom.controller.dto.DailyMenuDto;
 import com.diplom.controller.dto.ProductDto;
-import com.diplom.model.Eating;
 import com.diplom.model.Customer;
 import com.diplom.model.DailyMenu;
+import com.diplom.model.Eating;
 import com.diplom.model.Product;
 import com.diplom.model.ProductDailyMenu;
 import com.diplom.repository.CustomerRepository;
@@ -41,7 +41,7 @@ public class DailyMenuServiceImpl implements DailyMenuService {
                 .orElseThrow(() -> new BusinessException("Не удалось найти Дневное меню"));
 
         Map<Eating, List<Product>> productByEating = getProductsByEating(dailyMenu);
-        // todo optimize (done)
+
         List<ProductDto> breakfastsProducts = getEatingProducts(productByEating.get(Eating.BREAKFAST), dailyMenu.getId(), Eating.BREAKFAST);
         List<ProductDto> dinnerProducts = getEatingProducts(productByEating.get(Eating.DINNER), dailyMenu.getId(), Eating.DINNER);
         List<ProductDto> supperProducts = getEatingProducts(productByEating.get(Eating.SUPPER), dailyMenu.getId(), Eating.SUPPER);
@@ -50,7 +50,6 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         dailyMenuDto.setBreakfast(breakfastsProducts);
         dailyMenuDto.setDinner(dinnerProducts);
         dailyMenuDto.setSupper(supperProducts);
-        // todo (done)
 
         return dailyMenuDto;
     }
@@ -75,7 +74,6 @@ public class DailyMenuServiceImpl implements DailyMenuService {
                 .sum();
     }
 
-    //todo javadoc na scheduled metod
     @Override
     public void saveDailyMenuForEveryCustomer() {
 
@@ -87,7 +85,6 @@ public class DailyMenuServiceImpl implements DailyMenuService {
     public void saveDailyMenu(Customer customer) {
 
         DailyMenu dailyMenu = new DailyMenu();
-        // TODO TODO posmotret kak mojno delat avtomaticheski hibernate ili audit (done, PrePersist, PostUpdate)
         dailyMenu.setCreatedDate(LocalDate.now());
         dailyMenu.setCustomer(customer);
         dailyMenuRepository.save(dailyMenu);
@@ -106,11 +103,10 @@ public class DailyMenuServiceImpl implements DailyMenuService {
                 .orElseThrow(() -> new BusinessException("Не удалось найти Дневное меню"));
 
         Map<Eating, List<Product>> productByEating = getProductsByEating(dailyMenu);
-        // todo optimize (done)
+
         List<ProductDto> breakfastsProducts = getEatingProducts(productByEating.get(Eating.BREAKFAST), dailyMenu.getId(), Eating.BREAKFAST);
         List<ProductDto> dinnerProducts = getEatingProducts(productByEating.get(Eating.DINNER), dailyMenu.getId(), Eating.DINNER);
         List<ProductDto> supperProducts = getEatingProducts(productByEating.get(Eating.SUPPER), dailyMenu.getId(), Eating.SUPPER);
-
 
         dailyMenu.setGeneralCalories(getGeneralNutrients(breakfastsProducts, ProductDto::getFactualCalories)
                 + getGeneralNutrients(dinnerProducts, ProductDto::getFactualCalories)

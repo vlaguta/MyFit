@@ -1,7 +1,5 @@
 # MyFit
 
-// TODO posmotret readme na github (done)
-
 ##Table of contents
 *[General info] (#general-info)
 *[Technologies] (#technologies)
@@ -13,7 +11,7 @@ Project is created with:
 Spring Data version
 Spring Boot version
 Spring MVC version
-Hibernate?
+Hibernate
 PostgreSQL
 Thymeleaf
 ## Setup
